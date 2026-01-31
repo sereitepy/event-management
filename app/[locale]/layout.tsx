@@ -1,11 +1,12 @@
-import type { Metadata } from 'next'
-import { Geist, Geist_Mono, Manrope } from 'next/font/google'
-import './globals.css'
-import { ThemeProvider } from './components/theme-provider'
-import { ModeToggle } from './components/mode-toggle'
-import { hasLocale, NextIntlClientProvider } from 'next-intl'
-import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
+import type { Metadata } from 'next'
+import { hasLocale, NextIntlClientProvider } from 'next-intl'
+import { Geist, Geist_Mono, Manrope } from 'next/font/google'
+import { notFound } from 'next/navigation'
+import { ThemeProvider } from './components/header/theme-provider'
+import './globals.css'
+import Header from './components/header'
+import Footer from './components/footer'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -40,7 +41,7 @@ export default async function RootLayout({ children, params }: Props) {
   return (
     <html lang='en' suppressHydrationWarning>
       <body
-        className={`${manrope.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${manrope.variable} antialiased`}
       >
         <ThemeProvider
           attribute='class'
@@ -48,8 +49,16 @@ export default async function RootLayout({ children, params }: Props) {
           enableSystem
           disableTransitionOnChange
         >
-          <ModeToggle />
-          <NextIntlClientProvider>{children}</NextIntlClientProvider>
+          <NextIntlClientProvider>
+            <div className='min-h-screen flex flex-col justify-between'>
+              <Header locale={locale} />
+              <div className='grow'>
+
+              {children}
+              </div>
+              <Footer />
+            </div>
+          </NextIntlClientProvider>
         </ThemeProvider>
       </body>
     </html>
