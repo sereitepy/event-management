@@ -11,6 +11,7 @@ const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
 })
+
 const manrope = Manrope({
   variable: '--font-manrope',
   subsets: ['latin'],
@@ -37,22 +38,20 @@ export default async function RootLayout({ children, params }: Props) {
     notFound()
   }
   return (
-    <div>
-      <ThemeProvider
-        attribute='class'
-        defaultTheme='system'
-        enableSystem
-        disableTransitionOnChange
+    <html lang='en' suppressHydrationWarning>
+      <body
+        className={`${manrope.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <html lang='en' suppressHydrationWarning>
-          <body
-            className={`${manrope.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
-          >
-            <ModeToggle />
-            <NextIntlClientProvider>{children}</NextIntlClientProvider>
-          </body>
-        </html>
-      </ThemeProvider>
-    </div>
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ModeToggle />
+          <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   )
 }
