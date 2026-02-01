@@ -90,11 +90,11 @@
   --popover-foreground: oklch(0.95 0.005 264);
   --primary: oklch(0.6 0.24 264);
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.22 0.02 264);
+  --secondary: oklch(25.564% 0.01217 264.358);
   --secondary-foreground: oklch(0.95 0.005 264);
   --muted: oklch(0.2 0.02 264);
   --muted-foreground: oklch(0.65 0.01 264);
-  --accent: oklch(0.6 0.24 264);
+  --accent: oklch(41.647% 0.21134 263.083);
   --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.65 0.22 25);
   --border: oklch(38.962% 0.00576 258.451);
@@ -126,7 +126,7 @@
 
 @layer base {
   button:not(:disabled),
-  [role="button"]:not(:disabled) {
+  [role='button']:not(:disabled) {
     cursor: pointer;
   }
 }
