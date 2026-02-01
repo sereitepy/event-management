@@ -22,7 +22,7 @@ export default function LanguageSwitcher({ locale }: LanguageSwitcherProps) {
     router.push(`/${locale}${pathname.replace(/^\/(en|km)/, '')}`)
   }
   return (
-    <div>
+    <div className='md:flex hidden'>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant='outline' size='icon'>
