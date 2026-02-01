@@ -1,84 +1,88 @@
+import { Button } from '@/components/ui/button'
 import {
   Card,
-  CardAction,
-  CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
+import { Calendar, MapPin } from 'lucide-react'
 import Image from 'next/image'
+import { Event } from '@/types/event'
+import { formatEventDate, formatPrice } from '@/lib/utils/formatters'
 
-const data = [
-  {
-    id: '2234',
-    image: 'https://i.guim.co.uk/img/media/dc60c2216c6230eeb2eaf2ffecc6c7452b771820/0_54_4096_2457/master/4096.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=2f042b586d8d264e64c6417dd156716b',
-    date: 'dsdg',
-    title: 'Neon Nigts Festival 2026',
-    location: 'Koh Norea, Koh Pich',
-    price: '$150',
-    category: 'Music',
-  },
-  {
-    id: 'sedsrygr',
-    image: 'https://i.guim.co.uk/img/media/dc60c2216c6230eeb2eaf2ffecc6c7452b771820/0_54_4096_2457/master/4096.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=2f042b586d8d264e64c6417dd156716b',
-    date: 'dsdg',
-    title: 'Neon Nigts Festival 2026',
-    location: 'Koh Norea, Koh Pich',
-    price: '$150',
-    category: 'Music',
-  },
-  {
-    id: 'shrehurt',
-    image: 'https://i.guim.co.uk/img/media/dc60c2216c6230eeb2eaf2ffecc6c7452b771820/0_54_4096_2457/master/4096.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=2f042b586d8d264e64c6417dd156716b',
-    date: 'dsdg',
-    title: 'Neon Nigts Festival 2026',
-    location: 'Koh Norea, Koh Pich',
-    price: '$150',
-    category: 'Music',
-  },
-  {
-    id: '97ushg',
-    image: 'https://i.guim.co.uk/img/media/dc60c2216c6230eeb2eaf2ffecc6c7452b771820/0_54_4096_2457/master/4096.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=2f042b586d8d264e64c6417dd156716b',
-    date: 'dsdg',
-    title: 'Neon Nigts Festival 2026',
-    location: 'Koh Norea, Koh Pich',
-    price: '$150',
-    category: 'Music',
-  },
-]
+interface IndividualEventCardProps {
+  data: Event[]
+}
 
-export default function IndividualEventCard() {
+export default function IndividualEventCard({
+  data,
+}: IndividualEventCardProps) {
   return (
-    <div className='flex items-center gap-5 justify-center'>
-      {data.map(item => {
-        return (
-          <div key={item.id} className=''>
-            <Card className='w-80 pt-0'>
-              <div className='w-full'>
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  width={50}
-                  height={50}
-                  className='rounded-t-md w-full object-cover'
-                />
-              </div>
-              <CardHeader>
-                <CardTitle>Card Title</CardTitle>
-                <CardDescription>Card Description</CardDescription>
-                <CardAction>Card Action</CardAction>
-              </CardHeader>
-              <CardContent>
-                <p>Card Content</p>
-              </CardContent>
-              <CardFooter>
-                <p>Card Footer</p>
-              </CardFooter>
-            </Card>
-          </div>
-        )
-      })}
+    <div className='max-w-325 mx-auto'>
+      <div className='grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5'>
+        {data.map(item => {
+          return (
+            <div
+              key={item.id}
+              className='hover:border-ring border rounded-xl cursor-pointer h-full'
+            >
+              <Card className='h-full py-0 pb-2 relative overflow-hidden flex flex-col'>
+                <div className='w-full h-40 lg:h-60 overflow-hidden relative rounded-t-md'>
+                  <div className='absolute z-10 top-2.5 left-2.5 px-3 py-1 bg-purple-600 rounded-xl font-semibold text-sm'>
+                    {item.category}
+                  </div>
+                  <div className=' flex absolute z-10 top-2.5 right-2.5 px-3 py-1 bg-black/70 font-bold rounded-lg text-sm'>
+                    {formatEventDate(item.date)}
+                  </div>
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    width={900}
+                    height={240}
+                    className='w-full h-full object-cover hover:scale-110 transition-all ease-in-out'
+                  />
+                </div>
+
+                <div className='flex flex-col flex-1 justify-between gap-3 px-2 pb-1'>
+                  <CardHeader className='px-3'>
+                    <CardTitle className='text-lg font-bold'>
+                      {item.title}
+                    </CardTitle>
+                    <CardDescription className='flex flex-col gap-1'>
+                      <span className='flex gap-1 items-center'>
+                        <MapPin size={16} />
+                        {item.location}
+                      </span>
+                    </CardDescription>
+                  </CardHeader>
+
+                  <div className='flex flex-col gap-2'>
+                    <Separator />
+                    <CardFooter className='flex items-center justify-between pr-2 pl-3'>
+                      <div>
+                        <p className='text-sm text-secondary-foreground'>
+                          Starting from
+                        </p>
+                        <p className='text-base lg:text-lg font-bold'>
+                          {formatPrice(item.price, item.currency)}
+                        </p>
+                      </div>
+                      <Button
+                        variant='ghost'
+                        className='p-3 lg:text-base font-bold hover:bg-secondary active:bg-primary bg-border'
+                      >
+                        Book Ticket
+                      </Button>
+                    </CardFooter>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

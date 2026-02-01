@@ -15,8 +15,8 @@ export default function Hero() {
           <source src='/videos/concert.mp4' type='video/mp4' />
         </video>
         {/* Dark Overlay for text readability */}
-        <div className='absolute inset-0 bg-black/50' />
-        {/* Content */}
+        <div className='absolute inset-0 bg-black/60' />
+
         <div className='relative z-10 items-center justify-center h-full flex flex-col gap-3 md:gap-10'>
           <div className='items-center text-center text-white flex flex-col gap-4'>
             <h1 className='px-5 md:px-10 md:w-180 text-3xl md:text-5xl xl:text-6xl font-bold'>
@@ -31,7 +31,6 @@ export default function Hero() {
             <FilterBar />
           </div>
         </div>
-        {/* <div className='absolute inset-0 h-30 mix-blend-soft-light bg-black/30' /> */}
       </section>
     </div>
   )
