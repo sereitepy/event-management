@@ -6,7 +6,7 @@ export default function SearchEvents() {
     <div className='flex items-center'>
       <Search size='20px' color='gray' />
       <Input
-        className='border-0 shadow-none text-md truncate bg-secondary'
+        className='border-0 shadow-none text-md truncate md:w-40 lg:w-55'
         placeholder='Events, artists, or teams'
       />
     </div>

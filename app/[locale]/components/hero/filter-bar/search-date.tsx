@@ -19,7 +19,7 @@ export default function SearchDate() {
         <DropdownMenuTrigger asChild className='flex justify-end items-center'>
           <div className='flex items-center gap-1'>
             <CalendarCheck2 size='18px' color='gray' />
-            <Button className='border-0 shadow-none px-2 bg-secondary hover:bg-secondary text-black dark:text-white md:w-52'>
+            <Button className='border-0 shadow-none px-2 bg-secondary hover:bg-secondary text-black dark:text-white lg:w-52'>
               {date
                 ? date?.toLocaleDateString('en-US', {
                     weekday: 'long',
@@ -27,7 +27,7 @@ export default function SearchDate() {
                     month: 'long',
                     day: 'numeric',
                   })
-                : 'Any Date'}
+                : 'No Date Selected'}
             </Button>
           </div>
         </DropdownMenuTrigger>

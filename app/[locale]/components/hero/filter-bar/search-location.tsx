@@ -30,7 +30,7 @@ const locations = [
 export function SearchLocation() {
   return (
     <Combobox items={locations}>
-      <div className='flex items-center pl-2'>
+      <div className='flex items-center pl-2 md:w-45'>
         <MapPin size='20px' color='gray' />
         <ComboboxInput
           className='border-0 shadow-none text-md'
