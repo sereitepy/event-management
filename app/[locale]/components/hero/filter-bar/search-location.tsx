@@ -11,20 +11,20 @@ import {
 import { MapPin } from 'lucide-react'
 
 const locations = [
-  'Khan Chamkar Mon',
-  'Khan Doun Penh',
-  'Khan Prampir Makara',
-  'Khan Tuol Kouk',
-  'Khan Dangkao',
-  'Khan Mean Chey',
-  'Khan Russey Keo',
-  'Khan Sen Sok',
-  'Khan Pou Senchey',
-  'Khan Chroy Changvar',
-  'Khan Prek Pnov',
-  'Khan Chbar Ampov',
-  'Khan Boeng Keng Kang',
-  'Khan Kambol',
+  'Chamkar Mon',
+  'Doun Penh',
+  'Prampir Makara',
+  'Tuol Kouk',
+  'Dangkao',
+  'Mean Chey',
+  'Russey Keo',
+  'Sen Sok',
+  'Pou Senchey',
+  'Chroy Changvar',
+  'Prek Pnov',
+  'Chbar Ampov',
+  'Boeng Keng Kang',
+  'Kambol',
 ]
 
 export function SearchLocation() {

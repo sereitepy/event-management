@@ -21,7 +21,7 @@ export default function SearchDate() {
             <CalendarCheck2 size='18px' color='gray' />
             <Button className='border-0 shadow-none px-2 bg-secondary hover:bg-secondary text-black dark:text-white md:w-52'>
               {date
-                ? date?.toLocaleDateString('km-KH', {
+                ? date?.toLocaleDateString('en-US', {
                     weekday: 'long',
                     year: 'numeric',
                     month: 'long',
