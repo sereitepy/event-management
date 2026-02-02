@@ -103,7 +103,7 @@ export const mockEvents: Event[] = [
 
 export default function EventCards() {
   return (
-    <div className='bg-secondary p-5 flex flex-col gap-5'>
+    <div className='bg-secondary p-3 flex flex-col gap-3 px-4 md:px-6 2xl:px-0'>
       <div>
         <section className='flex items-center justify-between max-w-325 mx-auto'>
           <h1 className='text-lg font-bold'>Upcoming Events</h1>
@@ -128,7 +128,7 @@ export default function EventCards() {
         </section>
       </div>
       <Separator className='max-w-325 mx-auto' />
-      <section className='flex items-center justify-center w-full'>
+      <section className='flex items-center justify-center pt-2 w-full'>
         <IndividualEventCard data={mockEvents} />
       </section>
     </div>
