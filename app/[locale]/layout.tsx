@@ -43,15 +43,20 @@ export default async function RootLayout({ children, params }: Props) {
       <body className={`${manrope.variable} antialiased`}>
         <ThemeProvider
           attribute='class'
-          defaultTheme='system'
+          defaultTheme='dark'
           enableSystem
           disableTransitionOnChange
         >
           <NextIntlClientProvider>
             <div className='min-h-screen flex flex-col justify-between'>
-              <Header locale={locale} />
+              <div className='sticky -top-1 z-12 bg-background pt-0.5 shadow-md border-b'>
+                <Header locale={locale} />
+              </div>
               <div className='grow'>{children}</div>
+              <div className='border-t'>
+
               <Footer />
+              </div>
             </div>
           </NextIntlClientProvider>
         </ThemeProvider>
