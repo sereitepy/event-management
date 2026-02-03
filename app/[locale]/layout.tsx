@@ -46,18 +46,19 @@ export default async function RootLayout({ children, params }: Props) {
       >
         <ThemeProvider
           attribute='class'
-          defaultTheme='system'
+          defaultTheme='dark'
           enableSystem
           disableTransitionOnChange
         >
           <NextIntlClientProvider>
             <div className='min-h-screen flex flex-col justify-between'>
-              <div className='sticky top-0 z-12 bg-background shadow-md border-b'>
+              <div className='sticky -top-1 z-12 bg-background pt-0.5 shadow-md border-b'>
                 <Header locale={locale} />
               </div>
               <div className='grow'>{children}</div>
               <div className='border-t'>
-                <Footer />
+
+              <Footer />
               </div>
             </div>
           </NextIntlClientProvider>

@@ -29,14 +29,14 @@ export default function IndividualEventCard({
               key={item.id}
               className='hover:border-ring border rounded-xl cursor-pointer h-full'
             >
-              <Card className='h-full py-0 pb-2 relative overflow-hidden flex flex-col'>
-                <Link href={`/event/${item.id}`}>
+              <Link href={`/event/${item.id}`}>
+                <Card className='h-full py-0 pb-2 relative overflow-hidden flex flex-col gap-2'>
                   <div className='w-full h-40 lg:h-60 overflow-hidden relative rounded-t-md'>
-                    <div className='absolute z-10 top-2.5 left-2.5 px-3 py-1 bg-purple-600 rounded-xl font-semibold text-sm text-white'>
+                    <div className='absolute z-10 top-2.5 left-2.5 px-3 py-1 bg-purple-600 rounded-xl font-semibold text-sm'>
                       {item.category}
                     </div>
-                    <div className=' flex absolute z-10 top-2.5 right-2.5 px-3 py-1 text-white bg-black/70 font-bold rounded-lg text-sm'>
-                      {formatEventDate(item.date)}
+                    <div className='flex absolute z-10 top-2.5 right-2.5 px-3 py-1 bg-black/70 font-bold rounded-lg text-sm'>
+                      {formatEventDate(item.start_date)}
                     </div>
                     <Image
                       src={item.image}
@@ -80,8 +80,8 @@ export default function IndividualEventCard({
                       </CardFooter>
                     </div>
                   </div>
-                </Link>
-              </Card>
+                </Card>
+              </Link>
             </div>
           )
         })}
