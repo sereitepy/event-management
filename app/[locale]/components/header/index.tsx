@@ -10,7 +10,9 @@ interface HeaderProps {
 export default function Header({ locale }: HeaderProps) {
   return (
     <div className='flex justify-between px-5 2xl:px-0 py-3 items-center max-w-325 mx-auto'>
-      <div className='text-xl font-extrabold items-center '>evenTs</div>
+      <Link href={'/'}>
+        <div className='text-xl font-extrabold items-center'>evenTs</div>
+      </Link>
       <div className='flex items-center gap-3'>
         <ModeToggle />
         <LanguageSwitcher locale={locale} />

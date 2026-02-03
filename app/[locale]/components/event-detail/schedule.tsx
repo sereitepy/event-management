@@ -1,11 +1,11 @@
-import { EventDetailType } from '@/types/event'
-import { CircleSmall, ClipboardClock } from 'lucide-react'
+import { ScheduleItem } from '@/types/event'
+import { ClipboardClock } from 'lucide-react'
 
 interface EventScheduleProp {
-  data: EventDetailType | undefined
+  schedule: ScheduleItem[] | undefined
 }
 
-export default function EventSchedule({ data }: EventScheduleProp) {
+export default function EventSchedule({ schedule }: EventScheduleProp) {
   return (
     <div className='flex flex-col gap-5'>
       <h1 className='font-bold text-2xl flex gap-2 items-center'>
@@ -13,7 +13,7 @@ export default function EventSchedule({ data }: EventScheduleProp) {
         <p>Schedule</p>
       </h1>
       <div className='flex flex-col gap-6'>
-        {data?.schedule.map(item => (
+        {schedule?.map(item => (
           <div key={item.id} className='flex gap-5 items-center'>
             {/* <CircleSmall size='12px' className='text-sm'/> */}
             <section>

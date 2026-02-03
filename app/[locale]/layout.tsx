@@ -57,8 +57,7 @@ export default async function RootLayout({ children, params }: Props) {
               </div>
               <div className='grow'>{children}</div>
               <div className='border-t'>
-
-              <Footer />
+                <Footer />
               </div>
             </div>
           </NextIntlClientProvider>
