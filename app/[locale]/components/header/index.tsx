@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import LanguageSwitcher from './language-switcher'
 import { ModeToggle } from './mode-toggle'
+import Link from 'next/link'
 
 interface HeaderProps {
   locale: string | 'en' | 'km'

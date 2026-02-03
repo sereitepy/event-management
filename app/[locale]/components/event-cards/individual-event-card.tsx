@@ -7,10 +7,10 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
-import { Calendar, MapPin } from 'lucide-react'
-import Image from 'next/image'
-import { Event } from '@/types/event'
 import { formatEventDate, formatPrice } from '@/lib/utils/formatters'
+import { Event } from '@/types/event'
+import { MapPin } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 interface IndividualEventCardProps {

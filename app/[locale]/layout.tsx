@@ -17,6 +17,7 @@ const manrope = Manrope({
   variable: '--font-manrope',
   subsets: ['latin'],
 })
+
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
@@ -40,7 +41,9 @@ export default async function RootLayout({ children, params }: Props) {
   }
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className={`${manrope.variable} antialiased`}>
+      <body
+        className={`${manrope.variable} ${geistMono.variable} ${geistSans.variable} antialiased`}
+      >
         <ThemeProvider
           attribute='class'
           defaultTheme='dark'

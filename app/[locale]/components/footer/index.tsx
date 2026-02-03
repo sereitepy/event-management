@@ -24,7 +24,7 @@ export default function Footer() {
       <section className='flex items-start gap-5 md:gap-10 w-full md:flex-row flex-col'>
         <section className='flex flex-col gap-3 md:w-130 lg:w-full'>
           <p className='font-bold text-2xl'>evenTs</p>
-          <p className='text-gray-300'>
+          <p className='dark:text-gray-300'>
             Connecting people through unforgettable experiences. Discover, book,
             and go.
           </p>
@@ -54,7 +54,7 @@ export default function Footer() {
         </section>
       </section>
 
-      <section className='flex flex-col gap-5 w-full align-start py-5 text-gray-200 text-sm'>
+      <section className='flex flex-col gap-5 w-full align-start py-5 dark:text-gray-200 text-sm'>
         <Separator />
         <p>@2026 All rights reserved</p>
       </section>
