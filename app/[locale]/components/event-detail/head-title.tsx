@@ -35,7 +35,7 @@ export default function HeadTitle({
       />
       {/* Dark Overlay for text readability */}
       <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/50 to-transparent rounded-lg peer' />
-      <div className='absolute bottom-0 left-0 p-10 flex flex-col gap-4 w-full'>
+      <div className='absolute bottom-0 left-0 p-5 md:p-10 flex flex-col gap-4 w-full'>
         <p className='px-3 py-1 bg-purple-600 rounded-xl font-bold text-sm w-fit'>
           {category ?? 'No Category'}
         </p>

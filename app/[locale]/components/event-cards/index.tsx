@@ -7,10 +7,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Separator } from '@/components/ui/separator'
-import { mockEvent } from '@/mock-data/event'
-import IndividualEventCard from './individual-event-card'
+import { Event } from '@/types/event'
+import EventCard from './event-card'
 
-export default function EventCards() {
+interface EventCardsProps {
+  events: Event[]
+}
+
+export default function EventCards({ events }: EventCardsProps) {
   return (
     <div className='bg-secondary p-3 flex flex-col gap-3 px-4 md:px-6 2xl:px-0'>
       <div>
@@ -38,7 +42,13 @@ export default function EventCards() {
       </div>
       <Separator className='max-w-325 mx-auto' />
       <section className='flex md:items-center md:justify-center pt-2 w-full'>
-        <IndividualEventCard data={mockEvent} />
+        <div className='max-w-325 mx-auto'>
+          <div className='grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5'>
+            {events.map(event => (
+              <EventCard key={event.id} data={event} />
+            ))}
+          </div>
+        </div>
       </section>
     </div>
   )

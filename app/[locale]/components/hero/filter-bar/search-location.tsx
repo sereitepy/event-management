@@ -8,7 +8,9 @@ import {
   ComboboxItem,
   ComboboxList,
 } from '@/components/ui/combobox'
+import { EventDetailType } from '@/types/event'
 import { MapPin } from 'lucide-react'
+import { Dispatch, SetStateAction } from 'react'
 
 const locations = [
   'Chamkar Mon',
@@ -27,9 +29,18 @@ const locations = [
   'Kambol',
 ]
 
-export function SearchLocation() {
+interface SearchLocationProps {
+  value: string
+  onChange: (value: string) => void
+}
+
+export function SearchLocation({ value, onChange }: SearchLocationProps) {
   return (
-    <Combobox items={locations}>
+    <Combobox
+      items={locations}
+      value={value}
+      onValueChange={val => onChange(val || '')}
+    >
       <div className='flex items-center pl-2 md:w-45'>
         <MapPin size='20px' color='gray' />
         <ComboboxInput

@@ -1,13 +1,28 @@
-import { useTranslations } from 'next-intl'
+import { getEvents } from '@/lib/api/events'
 import Hero from './components/hero'
 import EventCards from './components/event-cards'
 
-export default function Home() {
-  const t = useTranslations('HomePage')
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    search?: string
+    location?: string
+    date?: string
+  }>
+}) {
+  const filters = await searchParams
+
+  const events = await getEvents({
+    category: filters.search,
+    location: filters.location,
+    date: filters.date,
+  })
+
   return (
-    <div className=''>
+    <div>
       <Hero />
-      <EventCards />
+      <EventCards events={events} />
     </div>
   )
 }
