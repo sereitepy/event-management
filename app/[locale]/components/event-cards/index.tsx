@@ -37,7 +37,7 @@ export default function EventCards() {
         </section>
       </div>
       <Separator className='max-w-325 mx-auto' />
-      <section className='flex items-center justify-center pt-2 w-full'>
+      <section className='flex md:items-center md:justify-center pt-2 w-full'>
         <IndividualEventCard data={mockEvent} />
       </section>
     </div>

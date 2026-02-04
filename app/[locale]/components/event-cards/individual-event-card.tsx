@@ -30,7 +30,7 @@ export default function IndividualEventCard({
               className='hover:border-ring border rounded-xl cursor-pointer h-full'
             >
               <Link href={`/event/${item.id}`}>
-                <Card className='h-full py-0 pb-2 relative overflow-hidden flex flex-col gap-2'>
+                <Card className='h-full py-0 pb-2 relative overflow-hidden flex flex-col gap-2 w-full'>
                   <div className='w-full h-40 lg:h-60 overflow-hidden relative rounded-t-md'>
                     <div className='absolute z-10 top-2.5 left-2.5 px-3 py-1 bg-purple-600 rounded-xl font-semibold text-sm'>
                       {item.category}
@@ -75,7 +75,7 @@ export default function IndividualEventCard({
                           variant='ghost'
                           className='p-3 lg:text-base font-bold hover:bg-secondary active:bg-primary bg-border'
                         >
-                          Book Ticket
+                          Attend
                         </Button>
                       </CardFooter>
                     </div>

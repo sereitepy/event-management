@@ -4,6 +4,7 @@ import Image from 'next/image'
 
 interface HeadeTitleProp {
   image: string | undefined
+  category: string | undefined
   title: string | undefined
   start_date: string | undefined
   end_date: string | undefined
@@ -14,6 +15,7 @@ interface HeadeTitleProp {
 
 export default function HeadTitle({
   image,
+  category,
   title,
   start_date,
   end_date,
@@ -28,12 +30,15 @@ export default function HeadTitle({
         alt={title ?? 'event-details'}
         width={1200}
         height={700}
-        className='w-full h-90 md:h-75 lg:h-100 object-cover object-center rounded-lg transition-all ease-in-out duration-300 hover:scale-110 group-hover:scale-110'
+        className='w-full h-95 md:h-75 lg:h-100 object-cover object-center rounded-lg transition-all ease-in-out duration-300 hover:scale-110 group-hover:scale-110'
         loading='eager'
       />
       {/* Dark Overlay for text readability */}
       <div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/50 to-transparent rounded-lg peer' />
       <div className='absolute bottom-0 left-0 p-10 flex flex-col gap-4 w-full'>
+        <p className='px-3 py-1 bg-purple-600 rounded-xl font-bold text-sm w-fit'>
+          {category ?? 'No Category'}
+        </p>
         <h1 className='text-5xl md:text-5xl lg:text-6xl font-bold text-white'>
           {title ?? 'No Title'}
         </h1>
@@ -60,17 +65,11 @@ export default function HeadTitle({
             <span className='flex items-center gap-2'>
               <Clock size='20px' />
               <p>
-                {start_time
-                  ? formatEventTime(start_time)
-                  : 'No time specified'}
+                {start_time ? formatEventTime(start_time) : 'No time specified'}
               </p>
             </span>
             <p>-</p>
-            <p>
-              {end_time
-                ? formatEventTime(end_time)
-                : 'No time specified'}
-            </p>
+            <p>{end_time ? formatEventTime(end_time) : 'No time specified'}</p>
           </div>
           {/* location */}
           <div className='flex items-center gap-2 font-semibold text-white'>

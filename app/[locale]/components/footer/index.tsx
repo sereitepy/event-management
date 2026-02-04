@@ -20,7 +20,7 @@ export default function Footer() {
   ]
 
   return (
-    <div className='bg-background flex flex-col gap-5 items-center px-5 2xl:px-0 pt-10 max-w-325 mx-auto'>
+    <div className='bg-background flex flex-col gap-5 items-center px-6 2xl:px-0 pt-10 max-w-325 mx-auto'>
       <section className='flex items-start gap-5 md:gap-10 w-full md:flex-row flex-col'>
         <section className='flex flex-col gap-3 md:w-130 lg:w-full'>
           <p className='font-bold text-2xl'>evenTs</p>

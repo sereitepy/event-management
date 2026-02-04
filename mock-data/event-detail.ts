@@ -1,4 +1,4 @@
-import { EventDetailType } from "@/types/event";
+import { EventDetailType } from '@/types/event'
 
 export const mockEventDetails: EventDetailType[] = [
   {
@@ -109,137 +109,136 @@ This year's summit features exclusive access to breakthrough technologies, netwo
         location: 'Grand Hall',
       },
     ],
-
-    ticket_types: [
-      {
-        id: 'tkt1',
-        name: 'General Admission',
-        price: 29900, // $299.00
-        description: 'Full conference access',
-        features: [
-          'Access to all keynotes and sessions',
-          'Conference materials and swag bag',
-          'Lunch and refreshments',
-          'Networking events',
-          'Certificate of attendance',
-        ],
-        available: true,
-        quantity_remaining: 12,
-      },
-      {
-        id: 'tkt2',
-        name: 'VIP Pass',
-        price: 59900, // $599.00
-        description: 'Access + Afterparty + Swag',
-        features: [
-          'All General Admission benefits',
-          'VIP lounge access',
-          'Priority seating',
-          'Exclusive evening afterparty',
-          'One-on-one speaker meetings',
-          'Premium swag package',
-          'Early access to recordings',
-        ],
-        available: true,
-        quantity_remaining: 8,
-      },
-      {
-        id: 'tkt3',
-        name: 'Early Bird',
-        price: 24900, // $249.00
-        description: 'Limited time offer',
-        features: [
-          'Same as General Admission',
-          'Save $50 with early registration',
-        ],
-        available: false, // Sold out
-      },
-    ],
-
-    venue: {
-      name: 'Moscone Center',
-      address: '747 Howard St',
-      city: 'San Francisco',
-      state: 'CA',
-      country: 'United States',
-      postal_code: '94103',
-      coordinates: {
-        lat: 37.784,
-        lng: -122.4015,
-      },
-    },
-
-    organizer: {
-      name: 'EventManager Inc.',
-      email: 'support@eventmanager.com',
-      phone: '+1 (888) 123-4567',
-      website: 'https://eventmanager.com',
-      logo: '/logo.png',
-    },
-
-    capacity: 5000,
-    attendees_count: 4988,
-
-    tags: [
-      'Technology',
-      'AI',
-      'Blockchain',
-      'Web3',
-      'Networking',
-      'Professional Development',
-    ],
-
-    requirements: [
-      'Valid government-issued ID required',
-      'Proof of ticket purchase (digital or printed)',
-      'Professional attire recommended',
-      'Laptop recommended for workshops',
-    ],
-
-    amenities: [
-      'Free WiFi throughout venue',
-      'Charging stations available',
-      'Wheelchair accessible',
-      'Gender-neutral restrooms',
-      'Coat check available',
-      'On-site medical support',
-      'Coffee and refreshments',
-      'Parking available ($25/day)',
-    ],
-
-    faq: [
-      {
-        question: "Can I get a refund if I can't attend?",
-        answer:
-          'Full refunds are available up to 30 days before the event. After that, tickets are non-refundable but transferable to another person.',
-      },
-      {
-        question: 'Will sessions be recorded?',
-        answer:
-          'Yes, all keynotes and main sessions will be recorded and made available to ticket holders within 48 hours after the event.',
-      },
-      {
-        question: 'Is there a dress code?',
-        answer:
-          'Business casual attire is recommended, but feel free to dress comfortably. Many attendees wear company t-shirts and jeans.',
-      },
-      {
-        question: 'Can I upgrade my ticket after purchase?',
-        answer:
-          'Yes, you can upgrade from General Admission to VIP Pass by contacting our support team and paying the difference.',
-      },
-    ],
-
-    social_links: {
-      twitter: 'https://twitter.com/techsummit2024',
-      linkedin: 'https://linkedin.com/company/techsummit',
-      instagram: 'https://instagram.com/techsummit2024',
-      facebook: 'https://facebook.com/techsummit2024',
-    },
-
-    status: 'upcoming',
-    is_featured: true,
     created_at: '2024-01-15T10:00:00Z',
     updated_at: '2024-10-20T14:30:00Z',
+    // ticket_types: [
+    //   {
+    //     id: 'tkt1',
+    //     name: 'General Admission',
+    //     price: 29900, // $299.00
+    //     description: 'Full conference access',
+    //     features: [
+    //       'Access to all keynotes and sessions',
+    //       'Conference materials and swag bag',
+    //       'Lunch and refreshments',
+    //       'Networking events',
+    //       'Certificate of attendance',
+    //     ],
+    //     available: true,
+    //     quantity_remaining: 12,
+    //   },
+    //   {
+    //     id: 'tkt2',
+    //     name: 'VIP Pass',
+    //     price: 59900, // $599.00
+    //     description: 'Access + Afterparty + Swag',
+    //     features: [
+    //       'All General Admission benefits',
+    //       'VIP lounge access',
+    //       'Priority seating',
+    //       'Exclusive evening afterparty',
+    //       'One-on-one speaker meetings',
+    //       'Premium swag package',
+    //       'Early access to recordings',
+    //     ],
+    //     available: true,
+    //     quantity_remaining: 8,
+    //   },
+    //   {
+    //     id: 'tkt3',
+    //     name: 'Early Bird',
+    //     price: 24900, // $249.00
+    //     description: 'Limited time offer',
+    //     features: [
+    //       'Same as General Admission',
+    //       'Save $50 with early registration',
+    //     ],
+    //     available: false, // Sold out
+    //   },
+    // ],
+
+    // venue: {
+    //   name: 'Moscone Center',
+    //   address: '747 Howard St',
+    //   city: 'San Francisco',
+    //   state: 'CA',
+    //   country: 'United States',
+    //   postal_code: '94103',
+    //   coordinates: {
+    //     lat: 37.784,
+    //     lng: -122.4015,
+    //   },
+    // },
+
+    // organizer: {
+    //   name: 'EventManager Inc.',
+    //   email: 'support@eventmanager.com',
+    //   phone: '+1 (888) 123-4567',
+    //   website: 'https://eventmanager.com',
+    //   logo: '/logo.png',
+    // },
+
+    // capacity: 5000,
+    // attendees_count: 4988,
+
+    // tags: [
+    //   'Technology',
+    //   'AI',
+    //   'Blockchain',
+    //   'Web3',
+    //   'Networking',
+    //   'Professional Development',
+    // ],
+
+    // requirements: [
+    //   'Valid government-issued ID required',
+    //   'Proof of ticket purchase (digital or printed)',
+    //   'Professional attire recommended',
+    //   'Laptop recommended for workshops',
+    // ],
+
+    // amenities: [
+    //   'Free WiFi throughout venue',
+    //   'Charging stations available',
+    //   'Wheelchair accessible',
+    //   'Gender-neutral restrooms',
+    //   'Coat check available',
+    //   'On-site medical support',
+    //   'Coffee and refreshments',
+    //   'Parking available ($25/day)',
+    // ],
+
+    // faq: [
+    //   {
+    //     question: "Can I get a refund if I can't attend?",
+    //     answer:
+    //       'Full refunds are available up to 30 days before the event. After that, tickets are non-refundable but transferable to another person.',
+    //   },
+    //   {
+    //     question: 'Will sessions be recorded?',
+    //     answer:
+    //       'Yes, all keynotes and main sessions will be recorded and made available to ticket holders within 48 hours after the event.',
+    //   },
+    //   {
+    //     question: 'Is there a dress code?',
+    //     answer:
+    //       'Business casual attire is recommended, but feel free to dress comfortably. Many attendees wear company t-shirts and jeans.',
+    //   },
+    //   {
+    //     question: 'Can I upgrade my ticket after purchase?',
+    //     answer:
+    //       'Yes, you can upgrade from General Admission to VIP Pass by contacting our support team and paying the difference.',
+    //   },
+    // ],
+
+    // social_links: {
+    //   twitter: 'https://twitter.com/techsummit2024',
+    //   linkedin: 'https://linkedin.com/company/techsummit',
+    //   instagram: 'https://instagram.com/techsummit2024',
+    //   facebook: 'https://facebook.com/techsummit2024',
+    // },
+
+    // status: 'upcoming',
+    // is_featured: true,
   },
 ]
