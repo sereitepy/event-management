@@ -2,17 +2,19 @@
 
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { CalendarCheck2 } from 'lucide-react'
-import { useState } from 'react'
 
-export default function SearchDate() {
-  const [date, setDate] = useState<Date | undefined>(new Date())
+interface SearchDateProps {
+  date: Date | undefined
+  onDateChange: (date: Date | undefined) => void
+}
+
+export default function SearchDate({ date, onDateChange }: SearchDateProps) {
   return (
     <div>
       <DropdownMenu>
@@ -21,7 +23,7 @@ export default function SearchDate() {
             <CalendarCheck2 size='18px' color='gray' />
             <Button className='border-0 shadow-none px-2 bg-secondary hover:bg-secondary text-black dark:text-white lg:w-52'>
               {date
-                ? date?.toLocaleDateString('en-US', {
+                ? date.toLocaleDateString('en-US', {
                     weekday: 'long',
                     year: 'numeric',
                     month: 'long',
@@ -35,7 +37,7 @@ export default function SearchDate() {
           <Calendar
             mode='single'
             selected={date}
-            onSelect={setDate}
+            onSelect={onDateChange}
             className='rounded-lg border'
           />
         </DropdownMenuContent>
