@@ -17,13 +17,13 @@ interface TicketCardProps {
 
 export default function TicketCard({ price }: TicketCardProps) {
   return (
-    <div className='w-full flex flex-col gap-5'>
-      <Card className='hover:shadow-md hover:shadow-blue-400/30 transition-colors duration-200 ease-in-out'>
+    <div className='w-full flex flex-col gap-3 transition-all duration-300 ease-in-out'>
+      <Card className='py-5 hover:shadow-md hover:shadow-blue-400/30 w-full md:w-85 lg:w-full'>
         <CardHeader>
           <CardTitle className='text-2xl font-bold'>Select Tickets</CardTitle>
         </CardHeader>
         <CardContent className='flex flex-col gap-5'>
-          <section className='px-5 py-3 ring-primary ring-2 rounded-md flex items-center justify-between gap-10'>
+          <section className='px-5 py-3 ring-primary ring-2 rounded-md flex items-center justify-between gap-2 lg:gap-10'>
             <div className='flex gap-4 items-center'>
               <CircleDot className='text-blue-400' size='20px' />
               <span>
@@ -37,7 +37,7 @@ export default function TicketCard({ price }: TicketCardProps) {
               {formatPrice(price)}
             </p>
           </section>
-          <section className='px-5 py-3 ring-border ring rounded-md flex items-center justify-between gap-10'>
+          <section className='px-5 py-3 ring-border ring rounded-md flex items-center justify-between gap-2 lg:gap-10'>
             <div className='flex gap-4 items-center'>
               <CircleDot className='' size='20px' />
               <span>
@@ -75,7 +75,7 @@ export default function TicketCard({ price }: TicketCardProps) {
           <p className='text-sm dark:text-gray-300'>Secure the ticket now!</p>
         </CardFooter>
       </Card>
-      <Card className='hover:shadow-md hover:shadow-blue-400/30 transition-colors duration-200 ease-in-out'>
+      <Card className='py-3 hover:shadow-md hover:shadow-blue-400/30 transition-colors duration-200 ease-in-out'>
         <CardHeader>
           <div className='flex items-center gap-5'>
             <div className='bg-border p-3 rounded-md'>

@@ -1,14 +1,14 @@
 export interface Event {
   id: string
   title: string
-  description: string
+  description?: string
   start_date: string
-  end_date: string
-  start_time: string
-  end_time: string
+  end_date?: string
+  start_time?: string
+  end_time?: string
   image: string
   location: string
-  google_map_link: string
+  google_map_link?: string
   price: number // in cents
   currency: string
   category:
@@ -73,12 +73,12 @@ export interface Organizer {
 export interface EventDetailType extends Event {
   speakers: Speaker[]
   schedule: ScheduleItem[]
-  ticket_types: TicketType[]
-  venue: Venue
-  organizer: Organizer
-  capacity: number
-  attendees_count: number
-  tags: string[]
+  ticket_types?: TicketType[]
+  venue?: Venue
+  organizer?: Organizer
+  capacity?: number
+  attendees_count?: number
+  tags?: string[]
   requirements?: string[]
   amenities?: string[]
   faq?: Array<{
@@ -91,8 +91,8 @@ export interface EventDetailType extends Event {
     instagram?: string
     linkedin?: string
   }
-  status: 'upcoming' | 'ongoing' | 'completed' | 'cancelled'
-  is_featured: boolean
-  created_at: string
-  updated_at: string
+  status?: 'upcoming' | 'ongoing' | 'completed' | 'cancelled'
+  is_featured?: boolean
+  created_at?: string
+  updated_at?: string
 }

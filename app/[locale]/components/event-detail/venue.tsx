@@ -17,7 +17,7 @@ export default function EventVenue({
       </h1>
       <p className='text-lg font-bold'>{location}</p>
       <div
-        className='w-full border rounded-lg overflow-hidden'
+        className='w-full border rounded-lg overflow-hidden transition-all duration-300 ease-in-out'
         style={{ height: '400px' }}
       >
         <iframe

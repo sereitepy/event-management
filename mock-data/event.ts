@@ -11,11 +11,6 @@ export const mockEvent: Event[] = [
     price: 15000, // $150.00
     currency: 'USD',
     category: 'Music',
-    description: '',
-    start_time: '',
-    end_time: '',
-    google_map_link: '',
-    end_date: '',
   },
   {
     id: 'sedsrygr',
@@ -26,12 +21,7 @@ export const mockEvent: Event[] = [
     location: 'Koh Norea, Koh Pich',
     price: 15000,
     currency: 'USD',
-    category: 'Music',
-    description: '',
-    end_date: '',
-    start_time: '',
-    end_time: '',
-    google_map_link: '',
+    category: 'Music'
   },
   {
     id: 'shrehurt',
@@ -42,12 +32,7 @@ export const mockEvent: Event[] = [
     location: 'Koh Norea, Koh Pich',
     price: 15000,
     currency: 'USD',
-    category: 'Music',
-    description: '',
-    end_date: '',
-    start_time: '',
-    end_time: '',
-    google_map_link: '',
+    category: 'Music'
   },
   {
     id: '97ushg',
@@ -58,12 +43,7 @@ export const mockEvent: Event[] = [
     location: 'Koh Norea, Koh Pich',
     price: 15000,
     currency: 'USD',
-    category: 'Music',
-    description: '',
-    end_date: '',
-    start_time: '',
-    end_time: '',
-    google_map_link: '',
+    category: 'Music'
   },
   {
     id: 'sw34urt',
@@ -74,12 +54,7 @@ export const mockEvent: Event[] = [
     location: 'Koh Norea, Koh Pich',
     price: 15000,
     currency: 'USD',
-    category: 'Music',
-    description: '',
-    end_date: '',
-    start_time: '',
-    end_time: '',
-    google_map_link: '',
+    category: 'Music'
   },
   {
     id: '97uerythshg',
@@ -90,12 +65,7 @@ export const mockEvent: Event[] = [
     location: 'Koh Norea, Koh Pich',
     price: 15000,
     currency: 'USD',
-    category: 'Music',
-    description: '',
-    end_date: '',
-    start_time: '',
-    end_time: '',
-    google_map_link: '',
+    category: 'Music'
   },
   {
     id: 'sw34uewwwert',
@@ -106,12 +76,7 @@ export const mockEvent: Event[] = [
     location: 'Koh Norea, Koh Pich',
     price: 15000,
     currency: 'USD',
-    category: 'Music',
-    description: '',
-    end_date: '',
-    start_time: '',
-    end_time: '',
-    google_map_link: '',
+    category: 'Music'
   },
   {
     id: '97ueryeyhe5yhethshg',
@@ -122,11 +87,6 @@ export const mockEvent: Event[] = [
     location: 'Koh Norea, Koh Pich',
     price: 15000,
     currency: 'USD',
-    category: 'Music',
-    description: '',
-    end_date: '',
-    start_time: '',
-    end_time: '',
-    google_map_link: '',
+    category: 'Music'
   },
 ]

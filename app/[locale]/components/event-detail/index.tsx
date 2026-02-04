@@ -14,6 +14,7 @@ export default function EventDetailComponent({
   data,
 }: EventDetailComponentProp) {
   const title = data?.title
+  const category = data?.category
   const image = data?.image
   const start_date = data?.start_date
   const end_date = data?.end_date
@@ -30,6 +31,7 @@ export default function EventDetailComponent({
     <div className='flex flex-col gap-10'>
       <HeadTitle
         title={title}
+        category={category}
         start_date={start_date}
         end_date={end_date}
         start_time={start_time}
@@ -37,14 +39,14 @@ export default function EventDetailComponent({
         image={image}
         location={location}
       />
-      <div className='flex justify-between gap-10 w-full'>
+      <div className='flex justify-between gap-10 w-full md:flex-row flex-col relative'>
         <section className='flex flex-col gap-10 flex-1'>
           <EventDescription description={description} />
           {data?.speakers[0] && <KeyNoteSpeakers speakers={speakers} />}
           <EventSchedule schedule={schedule} />
           <EventVenue location={location} google_map_link={google_map_link} />
         </section>
-        <section className='shrink-0'>
+        <section className='md:sticky md:top-20 md:self-start shrink-0'>
           <TicketCard price={price} />
         </section>
       </div>
