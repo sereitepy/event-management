@@ -19,7 +19,7 @@ function SubmitButton() {
   )
 }
 
-export default function LoginPage() {
+export default function LoginForm() {
   const [state, formAction] = useActionState(login, undefined)
 
   return (

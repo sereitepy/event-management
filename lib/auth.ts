@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers'
-import { mockAuthAPI } from './mock-api/auth'
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8080'
 
 export async function getCurrentUser() {
   const cookieStore = await cookies()
@@ -10,8 +11,19 @@ export async function getCurrentUser() {
   }
 
   try {
-    const result = await mockAuthAPI.verifyToken(accessToken)
-    return result.user
+    // Call your backend to verify the token
+    const response = await fetch(`${API_BASE_URL}/api/v1/auth/verify`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+
+    if (!response.ok) {
+      return null
+    }
+
+    const user = await response.json()
+    return user
   } catch (error) {
     // Token invalid or expired
     return null

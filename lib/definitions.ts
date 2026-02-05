@@ -20,6 +20,9 @@ export const SignupFormSchema = z
       .email({ message: 'Please enter a valid email.' })
       .trim()
       .toLowerCase(),
+    gender: z.enum(['MALE', 'FEMALE'], {
+      message: 'Please select a gender.',
+    }),
     dateOfBirth: z
       .string()
       .min(1, { message: 'Date of birth is required.' })
@@ -30,10 +33,8 @@ export const SignupFormSchema = z
           const age = today.getFullYear() - birthDate.getFullYear()
           const monthDiff = today.getMonth() - birthDate.getMonth()
           const dayDiff = today.getDate() - birthDate.getDate()
-
           const actualAge =
             monthDiff < 0 || (monthDiff === 0 && dayDiff < 0) ? age - 1 : age
-
           return actualAge >= 13
         },
         { message: 'You must be at least 13 years old.' }
@@ -71,6 +72,7 @@ export type FormState =
       errors?: {
         username?: string[]
         name?: string[]
+        gender?: string[]
         email?: string[]
         dateOfBirth?: string[]
         password?: string[]
@@ -80,6 +82,7 @@ export type FormState =
         username?: string
         name?: string
         email?: string
+        gender?: string
         dateOfBirth?: string
       }
       message?: string

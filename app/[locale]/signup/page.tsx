@@ -72,6 +72,28 @@ export default function SignupForm() {
           )}
         </div>
 
+        {/* Gender */}
+        <div className='space-y-1'>
+          <label htmlFor='gender' className='block text-sm font-medium'>
+            Gender
+          </label>
+          <select
+            id='gender'
+            name='gender'
+            defaultValue={state?.values?.gender || ''}
+            className='w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20'
+          >
+            <option value='' disabled>
+              Select gender
+            </option>
+            <option value='MALE'>Male</option>
+            <option value='FEMALE'>Female</option>
+          </select>
+          {state?.errors?.gender && (
+            <p className='text-sm text-red-600'>{state.errors.gender[0]}</p>
+          )}
+        </div>
+
         {/* Email */}
         <div className='space-y-1'>
           <label htmlFor='email' className='block text-sm font-medium'>
@@ -159,7 +181,10 @@ export default function SignupForm() {
 
       <p className='text-center text-sm text-gray-600'>
         Already have an account?{' '}
-        <Link href='/login' className='font-medium text-blue-600 hover:underline'>
+        <Link
+          href='/login'
+          className='font-medium text-blue-600 hover:underline'
+        >
           Log in
         </Link>
       </p>

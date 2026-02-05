@@ -1,8 +1,28 @@
-import { requireAuth } from '@/lib/auth'
+import { cookies } from 'next/headers'
 import { logout } from '@/app/actions/auth'
+import { redirect } from 'next/navigation'
 
 export default async function DashboardPage() {
-  const user = await requireAuth()
+  const cookieStore = await cookies()
+  const accessToken = cookieStore.get('accessToken')?.value
+
+  if (!accessToken) {
+    redirect('/login')
+  }
+
+  let user
+  try {
+    const payload = JSON.parse(
+      Buffer.from(accessToken.split('.')[1], 'base64').toString()
+    )
+    user = {
+      email: payload.email || 'User',
+      username: payload.username || 'User',
+      name: payload.name || 'User',
+    }
+  } catch {
+    redirect('/login')
+  }
 
   return (
     <div className='mx-auto max-w-4xl p-6'>
@@ -20,7 +40,6 @@ export default async function DashboardPage() {
           </button>
         </form>
       </div>
-
       <div className='rounded-lg border bg-white p-6'>
         <h2 className='mb-4 text-xl font-semibold'>Your Profile</h2>
         <dl className='space-y-2'>

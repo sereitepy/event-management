@@ -1,9 +1,9 @@
 'use server'
-
 import { FormState, SignupFormSchema } from '@/lib/definitions'
-import { mockAuthAPI } from '@/lib/mock-api/auth'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:2223'
 
 export async function signup(
   state: FormState,
@@ -16,6 +16,7 @@ export async function signup(
   const dateOfBirth = formData.get('dateOfBirth') as string
   const password = formData.get('password') as string
   const confirmPassword = formData.get('confirmPassword') as string
+  const gender = formData.get('gender') as string
 
   // Validate form fields
   const validatedFields = SignupFormSchema.safeParse({
@@ -25,9 +26,9 @@ export async function signup(
     dateOfBirth,
     password,
     confirmPassword,
+    gender,
   })
 
-  // If validation fails, return errors AND values
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten(issue => issue.message).fieldErrors,
@@ -36,19 +37,32 @@ export async function signup(
         name,
         email,
         dateOfBirth,
+        gender,
       },
     }
   }
 
-  // Call mock API
   try {
-    await mockAuthAPI.signup({
-      username: validatedFields.data.username,
-      name: validatedFields.data.name,
-      email: validatedFields.data.email,
-      dateOfBirth: validatedFields.data.dateOfBirth,
-      password: validatedFields.data.password,
+    const response = await fetch(`${API_BASE_URL}/api/v1/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: validatedFields.data.username,
+        gender: validatedFields.data.gender,
+        dob: validatedFields.data.dateOfBirth,
+        email: validatedFields.data.email,
+        password: validatedFields.data.password,
+        confirmedPassword: validatedFields.data.confirmPassword,
+      }),
     })
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}))
+      throw new Error(errorData.message || 'Failed to create account')
+    }
+
   } catch (error) {
     return {
       message:
@@ -58,6 +72,7 @@ export async function signup(
         name,
         email,
         dateOfBirth,
+        gender,
       },
     }
   }
@@ -72,8 +87,6 @@ export async function login(
   const email = formData.get('email') as string
   const password = formData.get('password') as string
 
-  console.log('🔐 Login action called with:', { email, password: '***' })
-
   if (!email || !password) {
     return {
       message: 'Email and password are required',
@@ -82,30 +95,59 @@ export async function login(
   }
 
   try {
-    const response = await mockAuthAPI.login({ email, password })
+    const response = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    })
 
-    console.log('✅ Login successful, setting cookies...')
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}))
+      throw new Error(errorData.message || 'Invalid credentials')
+    }
+
+    const data: {
+      tokenType: string
+      accessToken: string
+      refreshToken: string
+    } = await response.json()
+
+    // Decode JWT to get expiration (basic decode, no verification needed here)
+    const accessTokenPayload = JSON.parse(
+      Buffer.from(data.accessToken.split('.')[1], 'base64').toString()
+    )
+    const accessTokenExp = accessTokenPayload.exp
+    const currentTime = Math.floor(Date.now() / 1000)
+    const accessTokenMaxAge = accessTokenExp - currentTime
+
+    const refreshTokenPayload = JSON.parse(
+      Buffer.from(data.refreshToken.split('.')[1], 'base64').toString()
+    )
+    const refreshTokenExp = refreshTokenPayload.exp
+    const refreshTokenMaxAge = refreshTokenExp - currentTime
 
     // Store tokens in cookies
     const cookieStore = await cookies()
 
-    cookieStore.set('accessToken', response.accessToken, {
+    cookieStore.set('accessToken', data.accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: response.expiresIn / 1000,
+      maxAge: accessTokenMaxAge,
       path: '/',
     })
 
-    cookieStore.set('refreshToken', response.refreshToken, {
+    cookieStore.set('refreshToken', data.refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 7 * 24 * 60 * 60,
+      maxAge: refreshTokenMaxAge,
       path: '/',
     })
 
-    console.log('🍪 Cookies set, redirecting...')
+    // SUCCESS - exit try-catch
   } catch (error) {
     console.error('❌ Login error:', error)
     return {
@@ -114,22 +156,12 @@ export async function login(
     }
   }
 
+  // Redirect OUTSIDE try-catch
   redirect('/dashboard')
 }
 
 export async function logout() {
   const cookieStore = await cookies()
-
-  const accessToken = cookieStore.get('accessToken')?.value
-
-  if (accessToken) {
-    try {
-      await mockAuthAPI.logout(accessToken)
-    } catch (error) {
-      // Ignore errors during logout
-    }
-  }
-
   cookieStore.delete('accessToken')
   cookieStore.delete('refreshToken')
 
