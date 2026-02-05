@@ -1,4 +1,5 @@
 'use server'
+
 import { FormState, SignupFormSchema } from '@/lib/definitions'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
@@ -114,7 +115,7 @@ export async function login(
       refreshToken: string
     } = await response.json()
 
-    // Decode JWT to get expiration (basic decode, no verification needed here)
+    // Decode JWT to get expiration
     const accessTokenPayload = JSON.parse(
       Buffer.from(data.accessToken.split('.')[1], 'base64').toString()
     )
@@ -147,17 +148,14 @@ export async function login(
       path: '/',
     })
 
-    // SUCCESS - exit try-catch
   } catch (error) {
-    console.error('❌ Login error:', error)
     return {
       message: error instanceof Error ? error.message : 'Failed to login',
       values: { email },
     }
   }
 
-  // Redirect OUTSIDE try-catch
-  redirect('/dashboard')
+  redirect('/profile')
 }
 
 export async function logout() {
