@@ -148,7 +148,7 @@ export default function SignupFormComponent({
                   name='email'
                   type='email'
                   className='h-12'
-                  placeholder='jk@example.com'
+                  placeholder='john@example.com'
                   defaultValue={state?.values?.email}
                   aria-invalid={!!state?.errors?.email}
                 />
