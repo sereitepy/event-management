@@ -56,7 +56,7 @@ export default async function RootLayout({ children, params }: Props) {
                 <Header locale={locale} />
               </div>
               <div className='grow bg-secondary'>{children}</div>
-              <div className='border-t'>
+              <div className='border-t z-10'>
                 <Footer />
               </div>
             </div>
