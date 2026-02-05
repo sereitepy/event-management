@@ -19,7 +19,9 @@ export default function Header({ locale }: HeaderProps) {
         <Button className='font-bold' variant='secondary'>
           Login
         </Button>
-        <Button className='font-bold'>Sign Up</Button>
+        <Link href={'/signup'}>
+          <Button className='font-bold'>Sign Up</Button>
+        </Link>
       </div>
     </div>
   )
