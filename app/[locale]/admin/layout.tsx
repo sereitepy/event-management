@@ -40,7 +40,7 @@ export default async function AdminLayout({ children }: Props) {
               </div>
             </div>
           </div>
-          <div className='p-4 max-w-425'>{children}</div>
+          <div className='p-4 max-w-425 bg-secondary'>{children}</div>
         </main>
       </div>
     </SidebarProvider>
