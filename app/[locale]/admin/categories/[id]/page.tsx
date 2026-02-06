@@ -1,7 +1,27 @@
-import EventForm from '@/app/[locale]/admin/components/events/event-form'
-import { getCategories } from '@/lib/api/categories'
-import { verifyAdminAccess } from '@/lib/auth'
 import { redirect } from 'next/navigation'
+import EventForm from '../../components/events/event-form'
+import { verifyAdminAccess } from '@/lib/auth'
+
+async function getCategories(token: string) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:2223'}/api/v1/admin/categories`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        cache: 'no-store',
+      }
+    )
+    if (!response.ok) {
+      return []
+    }
+    return await response.json()
+  } catch (error) {
+    console.error('Failed to fetch categories:', error)
+    return []
+  }
+}
 
 async function getEvent(id: string, token: string) {
   try {
@@ -32,7 +52,7 @@ export default async function EditEventPage({
   const accessToken = await verifyAdminAccess()
 
   const [categories, event] = await Promise.all([
-    getCategories(),
+    getCategories(accessToken),
     getEvent(params.id, accessToken),
   ])
 

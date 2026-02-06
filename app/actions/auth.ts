@@ -166,7 +166,7 @@ export async function login(
     }
   }
 
-  redirect(isAdmin ? '/admin/dashboard' : '/profile')
+  redirect(isAdmin ? '/admin/dashboard' : '/')
 }
 
 export async function logout() {

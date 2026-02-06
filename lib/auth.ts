@@ -1,7 +1,31 @@
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:2223'
+
+
+export async function verifyAdminAccess(): Promise<string> {
+  const token = await getValidAccessToken()
+
+  if (!token) {
+    redirect('/login')
+  }
+
+  try {
+    const payload = JSON.parse(
+      Buffer.from(token.split('.')[1], 'base64').toString()
+    )
+
+    if (!payload.scope?.includes('ADMIN')) {
+      redirect('/profile')
+    }
+
+    return token
+  } catch {
+    redirect('/login')
+  }
+}
 
 export async function refreshAccessToken(): Promise<boolean> {
   try {

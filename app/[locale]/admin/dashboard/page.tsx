@@ -1,4 +1,3 @@
-// app/admin/dashboard/page.tsx
 import { getDashboardData } from '@/app/actions/auth'
 import {
   Card,
@@ -7,33 +6,20 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { verifyAdminAccess } from '@/lib/auth'
 import { Calendar, Mic, Tag, Users } from 'lucide-react'
-import { cookies } from 'next/headers'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 
 export default async function AdminDashboard() {
-  const cookieStore = await cookies()
-  const accessToken = cookieStore.get('accessToken')?.value
-
-  if (!accessToken) {
-    redirect('/login')
-  }
+  const accessToken = await verifyAdminAccess()
 
   let admin
   try {
     const payload = JSON.parse(
       Buffer.from(accessToken.split('.')[1], 'base64').toString()
     )
-
-    const scope = payload.scope || ''
-    const isAdmin = scope.includes('ADMIN')
-
-    if (!isAdmin) {
-      redirect('/profile')
-    }
-
     admin = {
       email: payload.sub || 'Admin',
       scope: payload.scope,
