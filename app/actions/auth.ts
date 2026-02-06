@@ -4,7 +4,8 @@ import { FormState, SignupFormSchema } from '@/lib/definitions'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:2223'
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:2223'
 
 export async function signup(
   state: FormState,
@@ -63,7 +64,6 @@ export async function signup(
       const errorData = await response.json().catch(() => ({}))
       throw new Error(errorData.message || 'Failed to create account')
     }
-
   } catch (error) {
     return {
       message:
@@ -95,6 +95,8 @@ export async function login(
     }
   }
 
+  let isAdmin = false // Declare this outside try-catch
+
   try {
     const response = await fetch(`${API_BASE_URL}/api/v1/auth/login`, {
       method: 'POST',
@@ -115,13 +117,17 @@ export async function login(
       refreshToken: string
     } = await response.json()
 
-    // Decode JWT to get expiration
+    // Decode JWT to get expiration and role
     const accessTokenPayload = JSON.parse(
       Buffer.from(data.accessToken.split('.')[1], 'base64').toString()
     )
     const accessTokenExp = accessTokenPayload.exp
     const currentTime = Math.floor(Date.now() / 1000)
     const accessTokenMaxAge = accessTokenExp - currentTime
+
+    // Check if user is admin based on scope
+    const scope = accessTokenPayload.scope || ''
+    isAdmin = scope.includes('ADMIN') // Update the outer variable
 
     const refreshTokenPayload = JSON.parse(
       Buffer.from(data.refreshToken.split('.')[1], 'base64').toString()
@@ -131,7 +137,6 @@ export async function login(
 
     // Store tokens in cookies
     const cookieStore = await cookies()
-
     cookieStore.set('accessToken', data.accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -139,7 +144,6 @@ export async function login(
       maxAge: accessTokenMaxAge,
       path: '/',
     })
-
     cookieStore.set('refreshToken', data.refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -148,6 +152,13 @@ export async function login(
       path: '/',
     })
 
+    cookieStore.set('isAdmin', isAdmin.toString(), {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: accessTokenMaxAge,
+      path: '/',
+    })
   } catch (error) {
     return {
       message: error instanceof Error ? error.message : 'Failed to login',
@@ -155,7 +166,7 @@ export async function login(
     }
   }
 
-  redirect('/profile')
+  redirect(isAdmin ? '/admin/dashboard' : '/profile')
 }
 
 export async function logout() {
@@ -164,4 +175,20 @@ export async function logout() {
   cookieStore.delete('refreshToken')
 
   redirect('/login')
+}
+
+export async function getDashboardData(accessToken: string) {
+  const response = await fetch(`${API_BASE_URL}/api/v1/admin/dashboard`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    cache: 'no-store',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch dashboard data')
+  }
+
+  return response.json()
 }
