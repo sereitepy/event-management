@@ -19,7 +19,7 @@ export default function SearchEvents({
         value={value}
         onChange={e => onChange(e.target.value)}
         onKeyPress={onKeyPress}
-        className='border-0 shadow-none text-md truncate md:w-40 lg:w-55'
+        className='bg-transparent! border-0! shadow-none! text-md truncate md:w-40 lg:w-55 focus-visible:ring-0! focus-visible:ring-offset-0! focus:outline-none!'
         placeholder='Events, artists, or teams'
       />
     </div>

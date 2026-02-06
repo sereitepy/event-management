@@ -8,9 +8,7 @@ import {
   ComboboxItem,
   ComboboxList,
 } from '@/components/ui/combobox'
-import { EventDetailType } from '@/types/event'
 import { MapPin } from 'lucide-react'
-import { Dispatch, SetStateAction } from 'react'
 
 const locations = [
   'Chamkar Mon',
@@ -35,16 +33,24 @@ interface SearchLocationProps {
 }
 
 export function SearchLocation({ value, onChange }: SearchLocationProps) {
+  const handleSelect = (selectedValue: string) => {
+    if (value === selectedValue) {
+      onChange('')
+    } else {
+      onChange(selectedValue)
+    }
+  }
+
   return (
     <Combobox
       items={locations}
       value={value}
-      onValueChange={val => onChange(val || '')}
+      onValueChange={val => handleSelect(val || '')}
     >
       <div className='flex items-center pl-2 md:w-45'>
         <MapPin size='20px' color='gray' />
         <ComboboxInput
-          className='border-0 shadow-none text-md'
+          className='bg-transparent! border-0! shadow-none! text-md focus-visible:ring-0! focus-visible:ring-offset-0! focus:outline-none!'
           placeholder='Search location...'
         />
       </div>
@@ -52,8 +58,12 @@ export function SearchLocation({ value, onChange }: SearchLocationProps) {
         <ComboboxEmpty>No location found...</ComboboxEmpty>
         <ComboboxList>
           {item => (
-            <ComboboxItem key={item} value={item} className='cursor-pointer'>
-              {item}
+            <ComboboxItem
+              key={item}
+              value={item}
+              className='cursor-pointer flex items-center justify-between'
+            >
+              <span>{item}</span>
             </ComboboxItem>
           )}
         </ComboboxList>

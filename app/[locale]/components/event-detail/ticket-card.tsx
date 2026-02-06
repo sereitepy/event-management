@@ -65,7 +65,7 @@ export default function TicketCard({ price }: TicketCardProps) {
               <h3 className='text-lg font-semibold'>Total</h3>
               <p className='text-4xl font-bold'>{formatPrice(price)}</p>
             </span>
-            <Button className='shadow-md shadow-blue-400/30 text-xl h-15 w-full'>
+            <Button className='shadow-md shadow-blue-400/30 text-xl h-15 w-full active:bg-accent'>
               <p className='font-bold text-xl'>Attend this Event</p>
               <CheckCheck size='40px' />
             </Button>

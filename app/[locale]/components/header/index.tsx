@@ -1,26 +1,32 @@
-import { Button } from '@/components/ui/button'
-import LanguageSwitcher from './language-switcher'
-import { ModeToggle } from './mode-toggle'
-import Link from 'next/link'
+import { cookies } from 'next/headers'
+import HeaderClient from './header-client'
 
 interface HeaderProps {
   locale: string | 'en' | 'km'
 }
 
-export default function Header({ locale }: HeaderProps) {
-  return (
-    <div className='flex justify-between px-6 2xl:px-0 py-3 items-center max-w-325 mx-auto'>
-      <Link href={'/'}>
-        <div className='text-xl font-extrabold items-center'>evenTs</div>
-      </Link>
-      <div className='flex items-center gap-3'>
-        <ModeToggle />
-        <LanguageSwitcher locale={locale} />
-        <Button className='font-bold' variant='secondary'>
-          Login
-        </Button>
-        <Button className='font-bold'>Sign Up</Button>
-      </div>
-    </div>
-  )
+async function getUser() {
+  const cookieStore = await cookies()
+  const accessToken = cookieStore.get('accessToken')?.value
+  if (!accessToken) {
+    return null
+  }
+  try {
+    const payload = JSON.parse(
+      Buffer.from(accessToken.split('.')[1], 'base64').toString()
+    )
+    const scope = payload.scope || ''
+    const isAdmin = scope.includes('ADMIN')
+    return {
+      email: payload.sub,
+      isAdmin,
+    }
+  } catch {
+    return null
+  }
+}
+
+export default async function Header({ locale }: HeaderProps) {
+  const user = await getUser()
+  return <HeaderClient user={user} locale={locale} />
 }

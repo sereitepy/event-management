@@ -3,10 +3,10 @@ import type { Metadata } from 'next'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { Geist, Geist_Mono, Manrope } from 'next/font/google'
 import { notFound } from 'next/navigation'
+import Footer from './components/footer'
+import Header from './components/header'
 import { ThemeProvider } from './components/header/theme-provider'
 import './globals.css'
-import Header from './components/header'
-import Footer from './components/footer'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -34,11 +34,11 @@ type Props = {
 }
 
 export default async function RootLayout({ children, params }: Props) {
-  // Ensure that the incoming `locale` is valid
   const { locale } = await params
   if (!hasLocale(routing.locales, locale)) {
     notFound()
   }
+
   return (
     <html lang='en' suppressHydrationWarning>
       <body
@@ -56,7 +56,7 @@ export default async function RootLayout({ children, params }: Props) {
                 <Header locale={locale} />
               </div>
               <div className='grow bg-secondary'>{children}</div>
-              <div className='border-t'>
+              <div className='border-t z-10'>
                 <Footer />
               </div>
             </div>
