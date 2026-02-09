@@ -1,5 +1,5 @@
 import { getCategories } from '@/lib/api/categories'
-import EventForm from '@/app/[locale]/admin/components/events/event-form'
+import EventForm from '@/app/components/admin/events/event-form'
 import { verifyAdminAccess } from '@/lib/auth'
 
 export default async function NewEventPage() {

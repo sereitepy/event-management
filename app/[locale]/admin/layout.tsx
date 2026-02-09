@@ -1,5 +1,5 @@
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
-import { AdminLayoutSidebar } from './components/layout-sidebar'
+import { AdminLayoutSidebar } from '../../components/admin/layout-sidebar'
 import { getValidAccessToken } from '@/lib/auth'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 

@@ -1,5 +1,5 @@
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
-import { AppSidebar } from '../components/profile'
+import { AppSidebar } from '../../components/user/profile'
 
 type Props = {
   children: React.ReactNode

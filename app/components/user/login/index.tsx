@@ -1,6 +1,5 @@
 'use client'
 
-import { login } from '@/app/actions/auth'
 import {
   Field,
   FieldDescription,
@@ -11,6 +10,7 @@ import {
   FieldSet,
 } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
+import { login } from '@/lib/api/login'
 import { SubmitButton } from '@/lib/utils/functions'
 import Link from 'next/link'
 import { useActionState } from 'react'

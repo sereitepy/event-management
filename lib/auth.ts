@@ -1,9 +1,7 @@
+'use server'
+
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:2223'
-
 
 export async function verifyAdminAccess(): Promise<string> {
   const token = await getValidAccessToken()
@@ -45,7 +43,6 @@ export async function refreshAccessToken(): Promise<boolean> {
     })
 
     if (!response.ok) {
-      // Refresh token is invalid or expired
       // Clear cookies
       cookieStore.delete('accessToken')
       cookieStore.delete('refreshToken')
@@ -137,5 +134,23 @@ export async function getValidAccessToken(): Promise<string | null> {
     return accessToken
   } catch {
     return null
+  }
+}
+
+export async function getAuthHeaders() {
+  const cookieStore = await cookies()
+  const accessToken = cookieStore.get('accessToken')?.value
+
+  if (!accessToken) {
+    return { success: false, headers: null, message: 'Not authenticated' }
+  }
+
+  return {
+    success: true,
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    message: null,
   }
 }
