@@ -1,11 +1,9 @@
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { Plus } from 'lucide-react'
-import Link from 'next/link'
-import CategoriesTable from '../components/categories'
 import { getCategories } from '@/lib/api/categories'
 import { verifyAdminAccess } from '@/lib/auth'
+import { Plus } from 'lucide-react'
+import Link from 'next/link'
+import CategoriesTable from '../../../components/admin/categories'
 
 export default async function AdminCategoriesPage() {
   await verifyAdminAccess()

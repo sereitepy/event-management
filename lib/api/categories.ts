@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers'
+import { API_BASE_URL } from '../definitions'
 
 export async function getCategories() {
   const cookieStore = await cookies()
@@ -10,7 +11,7 @@ export async function getCategories() {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:2223'}/api/v1/admin/categories`,
+      `${API_BASE_URL}/api/v1/admin/categories`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

@@ -1,6 +1,6 @@
-import { getEvents } from '@/lib/api/events'
-import Hero from './components/hero'
-import EventCards from './components/event-cards'
+import { getEvents } from '@/lib/api/user-events'
+import Hero from '../components/user/hero'
+import EventCards from '../components/user/event-cards'
 
 export default async function Home({
   searchParams,

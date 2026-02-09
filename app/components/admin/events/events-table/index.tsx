@@ -13,6 +13,8 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Edit, Trash2, Loader2 } from 'lucide-react'
 import Link from 'next/link'
+import { getEventsAdmin } from '@/app/actions/admin-events'
+import { deleteEvent } from '@/lib/api/admin-events'
 
 interface Event {
   id: number
@@ -25,47 +27,31 @@ interface Event {
   status: string
 }
 
-async function deleteEvent(id: number) {
-  try {
-    const res = await fetch(`/api/admin/events/${id}`, {
-      method: 'DELETE',
-    })
+// async function deleteEvent(id: number) {
+//   try {
+//     const res = await fetch(`/api/admin/events/${id}`, {
+//       method: 'DELETE',
+//     })
 
-    if (!res.ok) {
-      const error = await res.json()
-      return {
-        success: false,
-        message: error.message || 'Failed to delete event',
-      }
-    }
+//     if (!res.ok) {
+//       const error = await res.json()
+//       return {
+//         success: false,
+//         message: error.message || 'Failed to delete event',
+//       }
+//     }
 
-    return { success: true }
-  } catch (error) {
-    return {
-      success: false,
-      message: 'An error occurred while deleting the event',
-    }
-  }
-}
+//     return { success: true }
+//   } catch (error) {
+//     return {
+//       success: false,
+//       message: 'An error occurred while deleting the event',
+//     }
+//   }
+// }
 
 export function EventsTable({ events }: { events: Event[] }) {
-  const [eventsList, setEventsList] = useState(events)
-  const [deletingId, setDeletingId] = useState<number | null>(null)
-
-  const handleDelete = async (id: number) => {
-    if (confirm('Are you sure you want to delete this event?')) {
-      setDeletingId(id)
-      const result = await deleteEvent(id)
-
-      if (result.success) {
-        setEventsList(eventsList.filter(e => e.id !== id))
-      } else {
-        alert(result.message)
-      }
-
-      setDeletingId(null)
-    }
-  }
+  const [deletingId, setDeletingId] = useState<number>()
 
   return (
     <div className='rounded-md border'>
@@ -84,7 +70,7 @@ export function EventsTable({ events }: { events: Event[] }) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {eventsList.length === 0 ? (
+          {events.length === 0 ? (
             <TableRow>
               <TableCell
                 colSpan={9}
@@ -94,7 +80,7 @@ export function EventsTable({ events }: { events: Event[] }) {
               </TableCell>
             </TableRow>
           ) : (
-            eventsList.map(event => (
+            events.map(event => (
               <TableRow key={event.id}>
                 <TableCell className='font-mono text-sm text-muted-foreground'>
                   {event.id}
@@ -145,7 +131,10 @@ export function EventsTable({ events }: { events: Event[] }) {
                     <Button
                       variant='ghost'
                       size='sm'
-                      onClick={() => handleDelete(event.id)}
+                      onClick={() => {
+                        setDeletingId(event.id) 
+                        deleteEvent(event.id)
+                      }}
                       disabled={deletingId === event.id}
                     >
                       {deletingId === event.id ? (

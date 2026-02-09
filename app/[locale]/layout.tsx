@@ -3,9 +3,9 @@ import type { Metadata } from 'next'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { Geist, Geist_Mono, Manrope } from 'next/font/google'
 import { notFound } from 'next/navigation'
-import Footer from './components/footer'
-import Header from './components/header'
-import { ThemeProvider } from './components/header/theme-provider'
+import Footer from '../components/user/footer'
+import Header from '../components/user/header'
+import { ThemeProvider } from '../components/user/header/theme-provider'
 import './globals.css'
 
 const geistSans = Geist({

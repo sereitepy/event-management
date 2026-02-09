@@ -3,26 +3,26 @@ import { logout } from '@/app/actions/auth'
 import { redirect } from 'next/navigation'
 
 export default async function ProfilePage() {
-  // const cookieStore = await cookies()
-  // const accessToken = cookieStore.get('accessToken')?.value
+  const cookieStore = await cookies()
+  const accessToken = cookieStore.get('accessToken')?.value
 
-  // if (!accessToken) {
-  //   redirect('/login')
-  // }
+  if (!accessToken) {
+    redirect('/login')
+  }
 
-  // let user
-  // try {
-  //   const payload = JSON.parse(
-  //     Buffer.from(accessToken.split('.')[1], 'base64').toString()
-  //   )
-  //   user = {
-  //     email: payload.email || 'User',
-  //     username: payload.username || 'User',
-  //     name: payload.name || 'User',
-  //   }
-  // } catch {
-  //   redirect('/login')
-  // }
+  let user
+  try {
+    const payload = JSON.parse(
+      Buffer.from(accessToken.split('.')[1], 'base64').toString()
+    )
+    user = {
+      email: payload.email || 'User',
+      username: payload.username || 'User',
+      name: payload.name || 'User',
+    }
+  } catch {
+    redirect('/login')
+  }
 
   return (
     <div className='p-6'>

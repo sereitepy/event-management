@@ -1,9 +1,7 @@
 import { Event, EventDetailType } from '@/types/event'
+import { API_BASE_URL } from '../definitions'
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_BACKEND_URL || 'http://127.0.0.1:2223'
 
-// Transform backend event to frontend Event type
 function transformEvent(backendEvent: any): Event {
   return {
     id: backendEvent.id.toString(),
@@ -17,7 +15,6 @@ function transformEvent(backendEvent: any): Event {
   }
 }
 
-// Transform backend event detail to frontend EventDetailType
 function transformEventDetail(backendEvent: any): EventDetailType {
   return {
     id: backendEvent.id.toString(),
@@ -29,12 +26,11 @@ function transformEventDetail(backendEvent: any): EventDetailType {
     end_time: `${backendEvent.endDate}T${backendEvent.endTime}`,
     image: backendEvent.imageUrls?.[0] || '',
     location: backendEvent.location,
-    google_map_link: '', // Not provided by backend
+    google_map_link: '', 
     price: Math.round(backendEvent.price * 100), // Convert to cents
     currency: 'USD',
     category: backendEvent.categoryName,
 
-    // These fields aren't in your backend response, so we'll provide defaults
     speakers: [],
     schedule: [],
     created_at: backendEvent.createdAt,

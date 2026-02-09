@@ -1,4 +1,3 @@
-import { getDashboardData } from '@/app/actions/auth'
 import {
   Card,
   CardContent,
@@ -6,14 +5,18 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { getDashboardData } from '@/lib/api/admin-dashboard'
+import { getCategories } from '@/lib/api/categories'
+import { getSpeakers } from '@/lib/api/speakers'
 import { verifyAdminAccess } from '@/lib/auth'
 import { Calendar, Mic, Tag, Users } from 'lucide-react'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
-
 export default async function AdminDashboard() {
   const accessToken = await verifyAdminAccess()
+  const categories = await getCategories()
+  const speakers = await getSpeakers()
 
   let admin
   try {
@@ -56,14 +59,14 @@ export default async function AdminDashboard() {
       description: 'Manage event categories',
       icon: Tag,
       href: '/admin/categories',
-      count: dashboardData?.totalCategories || 0,
+      count: categories.length || 0,
     },
     {
       title: 'Speakers',
       description: 'Manage speakers',
       icon: Mic,
       href: '/admin/speakers',
-      count: dashboardData?.totalSpeakers || 0,
+      count: speakers.length || 0,
     },
   ]
 

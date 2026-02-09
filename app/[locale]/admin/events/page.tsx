@@ -1,15 +1,13 @@
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
-import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Plus } from 'lucide-react'
-import { EventsTable } from '../components/events/events-table'
-import { getEventsAdmin } from '@/app/actions/admin-events'
 import { verifyAdminAccess } from '@/lib/auth'
+import { Plus } from 'lucide-react'
+import Link from 'next/link'
+import { EventsTable } from '../../../components/admin/events/events-table'
+import { getAdminEvents } from '@/lib/api/admin-events'
 
 export default async function AdminEventsPage() {
   const accessToken = await verifyAdminAccess()
-  const events = await getEventsAdmin(accessToken)
+  const events = await getAdminEvents(accessToken)
 
   return (
     <div className='max-w-7xl mx-auto px-6 py-8'>

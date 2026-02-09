@@ -1,5 +1,4 @@
 'use client'
-import { logout } from '@/app/actions/auth'
 import { Button } from '@/components/ui/button'
 import {
   Sidebar,
@@ -8,13 +7,14 @@ import {
   SidebarGroup,
   SidebarHeader,
 } from '@/components/ui/sidebar'
+import { logout } from '@/lib/api/logout'
 import {
   Calendar,
   ChartBarStacked,
   LayoutDashboard,
   LogOut,
   PartyPopper,
-  Speech
+  Speech,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -65,7 +65,6 @@ export function AdminLayoutSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className='bg-secondary p-4 space-y-2'>
-        
         <form action={logout} className='w-full'>
           <Button
             type='submit'
