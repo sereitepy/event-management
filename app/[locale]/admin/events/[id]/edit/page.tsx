@@ -1,7 +1,7 @@
 import EventForm from '@/app/components/admin/events/event-form'
-import { getAdminIndividualEvent } from '@/lib/api/admin-events'
 import { getCategories } from '@/lib/api/categories'
-import { verifyAdminAccess } from '@/lib/auth'
+import { getEventById } from '@/lib/api/user-events'
+import { EventFormData } from '@/types/event'
 import { redirect } from 'next/navigation'
 
 export default async function EditEventPage({
@@ -9,12 +9,30 @@ export default async function EditEventPage({
 }: {
   params: { id: string }
 }) {
-  const accessToken = await verifyAdminAccess()
+  const { id } = await params
+  if (!id || isNaN(Number(id))) {
+    redirect('/admin/events')
+  }
 
   const [categories, event] = await Promise.all([
     getCategories(),
-    getAdminIndividualEvent(params.id, accessToken),
+    getEventById(id),
   ])
+
+  const eventFormData: EventFormData = {
+    title: event.title,
+    description: event.description,
+    startDate: event.start_date.split('T')[0],
+    endDate: event.end_date?.split('T')[0],
+    startTime: event.start_time?.split('T')[1].slice(0, 5),
+    endTime: event.end_time?.split('T')[1].slice(0, 5),
+    location: event.location ?? '',
+    khan: event?.venue?.address ?? '',
+    price: event.price,
+    capacity: event.capacity ?? 0,
+    categoryId: event.category,
+    imageUrls: event.image ? [event.image] : [],
+  }
 
   if (!event) {
     redirect('/admin/events')
@@ -23,8 +41,8 @@ export default async function EditEventPage({
   return (
     <EventForm
       mode='edit'
-      initialData={event}
-      eventId={parseInt(params.id)}
+      initialData={eventFormData}
+      eventId={id}
       categories={categories}
     />
   )

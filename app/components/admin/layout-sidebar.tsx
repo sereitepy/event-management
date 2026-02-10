@@ -39,23 +39,21 @@ export function AdminLayoutSidebar() {
       <SidebarContent className='bg-secondary'>
         <SidebarGroup className='gap-2'>
           {navItems.map(item => {
-            const isActive = pathname === item.href
+            const isActive = pathname.includes(item.href)
             const Icon = item.icon
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`w-full rounded-lg ${
-                  isActive ? 'bg-primary' : 'hover:bg-accent'
-                }`}
+                className='w-full rounded-lg'
               >
                 <Button
                   variant='ghost'
-                  className={
+                  className={`w-full justify-start ${
                     isActive
-                      ? 'text-primary-foreground hover:bg-primary hover:text-primary-foreground'
-                      : ''
-                  }
+                      ? 'bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground'
+                      : 'hover:bg-accent'
+                  }`}
                 >
                   <Icon /> {item.label}
                 </Button>

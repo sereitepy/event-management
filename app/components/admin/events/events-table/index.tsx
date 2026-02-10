@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import {
   Table,
   TableBody,
@@ -9,12 +10,11 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Edit, Trash2, Loader2 } from 'lucide-react'
-import Link from 'next/link'
-import { getEventsAdmin } from '@/app/actions/admin-events'
 import { deleteEvent } from '@/lib/api/admin-events'
+import { Edit, Loader2, Trash2 } from 'lucide-react'
+import Link from 'next/link'
+import { Router } from 'next/router'
+import { useState } from 'react'
 
 interface Event {
   id: number
@@ -26,29 +26,6 @@ interface Event {
   capacity: number
   status: string
 }
-
-// async function deleteEvent(id: number) {
-//   try {
-//     const res = await fetch(`/api/admin/events/${id}`, {
-//       method: 'DELETE',
-//     })
-
-//     if (!res.ok) {
-//       const error = await res.json()
-//       return {
-//         success: false,
-//         message: error.message || 'Failed to delete event',
-//       }
-//     }
-
-//     return { success: true }
-//   } catch (error) {
-//     return {
-//       success: false,
-//       message: 'An error occurred while deleting the event',
-//     }
-//   }
-// }
 
 export function EventsTable({ events }: { events: Event[] }) {
   const [deletingId, setDeletingId] = useState<number>()
