@@ -1,36 +1,23 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
+import { createEventAdmin, updateEventAdmin } from '@/lib/api/admin-events'
+import { EventFormData } from '@/types/event'
 import { ArrowLeft, Loader2 } from 'lucide-react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 interface Category {
   id: number
   name: string
 }
 
-interface EventFormData {
-  title: string
-  description: string
-  startDate: string
-  endDate: string
-  startTime: string
-  endTime: string
-  location: string
-  khan: string
-  price: number
-  capacity: number
-  categoryId: number | string
-  imageUrls: string[]
-}
-
 interface EventFormProps {
   initialData?: EventFormData
-  eventId?: number
+  eventId?: string
   mode: 'create' | 'edit'
-  categories: Category[] // Pass categories from server
+  categories: Category[]
 }
 
 export default function EventForm({
@@ -95,39 +82,20 @@ export default function EventForm({
     e.preventDefault()
     setLoading(true)
     setError(null)
-
     try {
-      // Prepare data with proper types
-      const submitData = {
-        ...formData,
-        categoryId: parseInt(formData.categoryId.toString()),
-        price: parseFloat(formData.price.toString()),
-        capacity: parseInt(formData.capacity.toString()),
-      }
-
-      const response = await fetch(
+      const result =
         mode === 'create'
-          ? '/api/admin/events'
-          : `/api/admin/events/${eventId}`,
-        {
-          method: mode === 'create' ? 'POST' : 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(submitData),
-        }
-      )
+          ? await createEventAdmin(formData)
+          : await updateEventAdmin(eventId!, formData)
 
-      const result = await response.json()
-
-      if (!response.ok) {
-        throw new Error(result.message || 'Failed to save event')
+      if (!result.success) {
+        setError(result.message || 'An error occurred')
+        return
       }
 
       router.push('/admin/events')
-      router.refresh()
-    } catch (err: any) {
-      setError(err.message || 'An error occurred')
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
       setLoading(false)
     }
@@ -150,7 +118,7 @@ export default function EventForm({
         </h1>
 
         {error && (
-          <div className='bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-6'>
+          <div className='border border-destructive  px-4 py-3 rounded mb-6'>
             {error}
           </div>
         )}
@@ -158,10 +126,7 @@ export default function EventForm({
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
           {/* Title */}
           <div>
-            <label
-              htmlFor='title'
-              className='block text-sm font-medium text-gray-700 mb-2'
-            >
+            <label htmlFor='title' className='block text-lg font-bold mb-2'>
               Title <span className='text-red-500'>*</span>
             </label>
             <input
@@ -180,7 +145,7 @@ export default function EventForm({
           <div>
             <label
               htmlFor='description'
-              className='block text-sm font-medium text-gray-700 mb-2'
+              className='block text-lg font-bold mb-2'
             >
               Description <span className='text-red-500'>*</span>
             </label>
@@ -202,7 +167,7 @@ export default function EventForm({
             <div>
               <label
                 htmlFor='startDate'
-                className='block text-sm font-medium text-gray-700 mb-2'
+                className='block text-lg font-bold mb-2'
               >
                 Start Date <span className='text-red-500'>*</span>
               </label>
@@ -219,10 +184,7 @@ export default function EventForm({
 
             {/* End Date */}
             <div>
-              <label
-                htmlFor='endDate'
-                className='block text-sm font-medium text-gray-700 mb-2'
-              >
+              <label htmlFor='endDate' className='block text-lg font-bold mb-2'>
                 End Date <span className='text-red-500'>*</span>
               </label>
               <input
@@ -240,7 +202,7 @@ export default function EventForm({
             <div>
               <label
                 htmlFor='startTime'
-                className='block text-sm font-medium text-gray-700 mb-2'
+                className='block text-lg font-bold mb-2'
               >
                 Start Time <span className='text-red-500'>*</span>
               </label>
@@ -257,10 +219,7 @@ export default function EventForm({
 
             {/* End Time */}
             <div>
-              <label
-                htmlFor='endTime'
-                className='block text-sm font-medium text-gray-700 mb-2'
-              >
+              <label htmlFor='endTime' className='block text-lg font-bold mb-2'>
                 End Time <span className='text-red-500'>*</span>
               </label>
               <input
@@ -281,7 +240,7 @@ export default function EventForm({
             <div>
               <label
                 htmlFor='location'
-                className='block text-sm font-medium text-gray-700 mb-2'
+                className='block text-lg font-bold mb-2'
               >
                 Location <span className='text-red-500'>*</span>
               </label>
@@ -299,10 +258,7 @@ export default function EventForm({
 
             {/* Khan */}
             <div>
-              <label
-                htmlFor='khan'
-                className='block text-sm font-medium text-gray-700 mb-2'
-              >
+              <label htmlFor='khan' className='block text-lg font-bold mb-2'>
                 Khan <span className='text-red-500'>*</span>
               </label>
               <input
@@ -322,10 +278,7 @@ export default function EventForm({
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
             {/* Price */}
             <div>
-              <label
-                htmlFor='price'
-                className='block text-sm font-medium text-gray-700 mb-2'
-              >
+              <label htmlFor='price' className='block text-lg font-bold mb-2'>
                 Price ($) <span className='text-red-500'>*</span>
               </label>
               <input
@@ -346,7 +299,7 @@ export default function EventForm({
             <div>
               <label
                 htmlFor='capacity'
-                className='block text-sm font-medium text-gray-700 mb-2'
+                className='block text-lg font-bold mb-2'
               >
                 Capacity <span className='text-red-500'>*</span>
               </label>
@@ -368,7 +321,7 @@ export default function EventForm({
           <div>
             <label
               htmlFor='categoryId'
-              className='block text-sm font-medium text-gray-700 mb-2'
+              className='block text-lg font-bold mb-2'
             >
               Category <span className='text-red-500'>*</span>
             </label>
@@ -391,7 +344,7 @@ export default function EventForm({
 
           {/* Image URLs */}
           <div>
-            <label className='block text-sm font-medium text-gray-700 mb-2'>
+            <label className='block text-lg font-bold mb-2'>
               Image URLs <span className='text-red-500'>*</span>
             </label>
             <div className='flex gap-2 mb-2'>
@@ -411,7 +364,7 @@ export default function EventForm({
               </Button>
             </div>
             {formData.imageUrls.length === 0 && (
-              <p className='text-sm text-gray-500'>
+              <p className='text-sm text-gray-200'>
                 At least one image URL is required
               </p>
             )}
@@ -419,7 +372,7 @@ export default function EventForm({
               {formData.imageUrls.map((url, index) => (
                 <div
                   key={index}
-                  className='flex items-center gap-2 bg-gray-50 p-2 rounded'
+                  className='flex items-center gap-2 bg-gray-800 p-2 rounded'
                 >
                   <span className='flex-1 text-sm truncate'>{url}</span>
                   <Button

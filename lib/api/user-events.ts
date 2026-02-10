@@ -1,4 +1,4 @@
-import { Event, EventDetailType } from '@/types/event'
+import { Event, EventDetailType, EventFormData } from '@/types/event'
 import { API_BASE_URL } from '../definitions'
 
 
@@ -26,7 +26,7 @@ function transformEventDetail(backendEvent: any): EventDetailType {
     end_time: `${backendEvent.endDate}T${backendEvent.endTime}`,
     image: backendEvent.imageUrls?.[0] || '',
     location: backendEvent.location,
-    google_map_link: '', 
+    google_map_link: '',
     price: Math.round(backendEvent.price * 100), // Convert to cents
     currency: 'USD',
     category: backendEvent.categoryName,

@@ -26,7 +26,7 @@ export default async function AdminLayout({ children }: Props) {
         <main className='flex-1 w-full'>
           <div className='sticky top-0 z-10 bg-secondary border-b p-4 flex items-center justify-between'>
             <SidebarTrigger />
-            <div className='flex items-center gap-3 px-6 rounded-lg bg-background/50'>
+            <div className='flex items-center gap-3 pr-7'>
               <Avatar className='h-8 w-8'>
                 <AvatarFallback>
                   {adminEmail?.[0]?.toUpperCase() || 'A'}

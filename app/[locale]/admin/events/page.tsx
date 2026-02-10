@@ -10,8 +10,8 @@ export default async function AdminEventsPage() {
   const events = await getAdminEvents(accessToken)
 
   return (
-    <div className='max-w-7xl mx-auto px-6 py-8'>
-      <div className='flex justify-between items-center mb-6'>
+    <div className='max-w-7xl mx-auto px-6  flex flex-col gap-6'>
+      <div className='flex justify-between items-center'>
         <div>
           <h1 className='text-3xl font-bold'>Events</h1>
           <p className='text-muted-foreground'>Manage all events</p>

@@ -1,24 +1,21 @@
 'use server'
-
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+
 export async function verifyAdminAccess(): Promise<string> {
   const token = await getValidAccessToken()
-
   if (!token) {
     redirect('/login')
   }
-
   try {
     const payload = JSON.parse(
       Buffer.from(token.split('.')[1], 'base64').toString()
     )
-
     if (!payload.scope?.includes('ADMIN')) {
       redirect('/profile')
     }
-
     return token
   } catch {
     redirect('/login')
@@ -29,7 +26,6 @@ export async function refreshAccessToken(): Promise<boolean> {
   try {
     const cookieStore = await cookies()
     const refreshToken = cookieStore.get('refreshToken')?.value
-
     if (!refreshToken) {
       return false
     }
@@ -43,7 +39,6 @@ export async function refreshAccessToken(): Promise<boolean> {
     })
 
     if (!response.ok) {
-      // Clear cookies
       cookieStore.delete('accessToken')
       cookieStore.delete('refreshToken')
       cookieStore.delete('isAdmin')
@@ -108,13 +103,10 @@ export async function refreshAccessToken(): Promise<boolean> {
 export async function getValidAccessToken(): Promise<string | null> {
   const cookieStore = await cookies()
   const accessToken = cookieStore.get('accessToken')?.value
-
   if (!accessToken) {
     return null
   }
-
   try {
-    // Check if token is expired or about to expire (within 1 minute)
     const payload = JSON.parse(
       Buffer.from(accessToken.split('.')[1], 'base64').toString()
     )
@@ -122,11 +114,10 @@ export async function getValidAccessToken(): Promise<string | null> {
     const isExpiringSoon = payload.exp - currentTime < 60
 
     if (isExpiringSoon) {
-      // Try to refresh
       const refreshed = await refreshAccessToken()
       if (refreshed) {
-        // Get the new token
-        return cookieStore.get('accessToken')?.value || null
+        const freshCookieStore = await cookies()
+        return freshCookieStore.get('accessToken')?.value || null
       }
       return null
     }
@@ -140,17 +131,19 @@ export async function getValidAccessToken(): Promise<string | null> {
 export async function getAuthHeaders() {
   const cookieStore = await cookies()
   const accessToken = cookieStore.get('accessToken')?.value
-
   if (!accessToken) {
-    return { success: false, headers: null, message: 'Not authenticated' }
+    return {
+      success: false as const,
+      headers: null,
+      message: 'Not authenticated',
+    }
   }
-
   return {
-    success: true,
+    success: true as const,
     headers: {
       Authorization: `Bearer ${accessToken}`,
       'Content-Type': 'application/json',
-    },
+    } satisfies HeadersInit,
     message: null,
   }
 }
