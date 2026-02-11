@@ -1,9 +1,9 @@
-import { getEventById } from '@/lib/api/events'
+import { getEventById } from '@/lib/api/user-events'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowCircleLeftIcon } from '@phosphor-icons/react/ssr'
-import EventDetailComponent from '../../components/event-detail'
+import EventDetailComponent from '../../../components/user/event-detail'
 
 export default async function EventDetail({
   params,
@@ -16,7 +16,7 @@ export default async function EventDetail({
   try {
     data = await getEventById(slug)
   } catch (error) {
-    notFound() // Shows 404 page if event not found
+    notFound()
   }
 
   return (

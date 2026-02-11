@@ -96,3 +96,19 @@ export interface EventDetailType extends Event {
   created_at?: string
   updated_at?: string
 }
+
+// -------------------ADMIN------------
+export interface EventFormData {
+  title: string
+  description: string | undefined
+  startDate: string
+  endDate: string | undefined
+  startTime: string | undefined
+  endTime: string | undefined
+  location: string
+  khan: string
+  price: number
+  capacity: number
+  categoryId: number | string
+  imageUrls: string[]
+}
