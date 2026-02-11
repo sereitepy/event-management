@@ -13,7 +13,6 @@ import {
 import { deleteEvent } from '@/lib/api/admin-events'
 import { Edit, Loader2, Trash2 } from 'lucide-react'
 import Link from 'next/link'
-import { Router } from 'next/router'
 import { useState } from 'react'
 
 interface Event {

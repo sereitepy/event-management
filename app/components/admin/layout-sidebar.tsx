@@ -15,6 +15,7 @@ import {
   LogOut,
   PartyPopper,
   Speech,
+  UserRoundPen,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -24,6 +25,7 @@ export function AdminLayoutSidebar() {
 
   const navItems = [
     { href: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+    { href: '/admin/users', icon: UserRoundPen, label: 'Users' },
     { href: '/admin/events', icon: PartyPopper, label: 'Events' },
     { href: '/admin/categories', icon: ChartBarStacked, label: 'Categories' },
     { href: '/admin/speakers', icon: Speech, label: 'Speakers' },

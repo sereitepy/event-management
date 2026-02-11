@@ -10,10 +10,6 @@ export default async function EditEventPage({
   params: { id: string }
 }) {
   const { id } = await params
-  if (!id || isNaN(Number(id))) {
-    redirect('/admin/events')
-  }
-
   const [categories, event] = await Promise.all([
     getCategories(),
     getEventById(id),

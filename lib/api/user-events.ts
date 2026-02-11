@@ -1,4 +1,4 @@
-import { Event, EventDetailType, EventFormData } from '@/types/event'
+import { Event, EventDetailType } from '@/types/event'
 import { API_BASE_URL } from '../definitions'
 
 

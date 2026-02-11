@@ -6,8 +6,7 @@ import { EventsTable } from '../../../components/admin/events/events-table'
 import { getAdminEvents } from '@/lib/api/admin-events'
 
 export default async function AdminEventsPage() {
-  const accessToken = await verifyAdminAccess()
-  const events = await getAdminEvents(accessToken)
+  const events = await getAdminEvents()
 
   return (
     <div className='max-w-7xl mx-auto px-6  flex flex-col gap-6'>

@@ -1,16 +1,12 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
+import { createCategory, updateCategory } from '@/lib/api/categories'
+import { CategoryFormData } from '@/types/category'
 import { ArrowLeft, Loader2 } from 'lucide-react'
 import Link from 'next/link'
-
-interface CategoryFormData {
-  name?: string
-  description?: string
-  createdAt?: string
-}
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 interface CategoryFormProps {
   initialData?: CategoryFormData
@@ -46,31 +42,20 @@ export default function CategoryForm({
     e.preventDefault()
     setLoading(true)
     setError(null)
-
     try {
-      const response = await fetch(
+      const result =
         mode === 'create'
-          ? '/api/admin/categories'
-          : `/api/admin/categories/${categoryId}`,
-        {
-          method: mode === 'create' ? 'POST' : 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        }
-      )
+          ? await createCategory(formData)
+          : await updateCategory(categoryId!, formData)
 
-      const result = await response.json()
-
-      if (!response.ok) {
-        throw new Error(result.message || 'Failed to save category')
+      if (!result.success) {
+        setError(result.message || 'An error occurred')
+        return
       }
 
       router.push('/admin/categories')
-      router.refresh()
-    } catch (err: any) {
-      setError(err.message || 'An error occurred')
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'An error occurred')
     } finally {
       setLoading(false)
     }

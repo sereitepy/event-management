@@ -2,7 +2,7 @@ import * as z from 'zod'
 
 export const API_BASE_URL =
   process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:2223'
-  
+
 export const SignupFormSchema = z
   .object({
     username: z
@@ -69,6 +69,56 @@ export const SignupFormSchema = z
     message: "Passwords don't match.",
     path: ['confirmPassword'],
   })
+
+export type UserFormValues = z.infer<typeof UserFormSchema>
+
+export const UserFormSchema = z
+  .object({
+    username: z
+      .string()
+      .min(3, { message: 'Username must be at least 3 characters' })
+      .max(20, { message: 'Username must not exceed 20 characters' }),
+    gender: z.enum(['MALE', 'FEMALE', 'OTHER'], {
+      message: 'Please select a gender',
+    }),
+    dob: z.date({
+      message: 'Date of birth is required',
+    }),
+    email: z.string().email({ message: 'Invalid email address' }),
+    password: z
+      .string()
+      .min(8, { message: 'Password must be at least 8 characters' })
+      .regex(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/,
+        {
+          message:
+            'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+        }
+      ),
+    confirmedPassword: z.string(),
+  })
+  .refine(data => data.password === data.confirmedPassword, {
+    message: "Passwords don't match",
+    path: ['confirmedPassword'],
+  })
+
+export interface CreateUserData {
+  username: string
+  gender: 'MALE' | 'FEMALE' | 'OTHER'
+  dob: Date
+  email: string
+  password: string
+  confirmedPassword: string
+}
+
+export interface UpdateUserData {
+  username: string
+  gender: 'MALE' | 'FEMALE' | 'OTHER'
+  dob: Date
+  email: string
+  password?: string
+  confirmedPassword?: string
+}
 
 export type FormState =
   | {

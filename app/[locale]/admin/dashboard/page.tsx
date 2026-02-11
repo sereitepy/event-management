@@ -14,9 +14,10 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 export default async function AdminDashboard() {
-  const accessToken = await verifyAdminAccess()
   const categories = await getCategories()
   const speakers = await getSpeakers()
+  const dashboardData = await getDashboardData()
+  const accessToken = await verifyAdminAccess()
 
   let admin
   try {
@@ -29,14 +30,6 @@ export default async function AdminDashboard() {
     }
   } catch {
     redirect('/login')
-  }
-
-  let dashboardData
-  try {
-    dashboardData = await getDashboardData(accessToken)
-  } catch (error) {
-    console.error('Error fetching dashboard:', error)
-    dashboardData = null
   }
 
   const adminSections = [
@@ -66,7 +59,7 @@ export default async function AdminDashboard() {
       description: 'Manage speakers',
       icon: Mic,
       href: '/admin/speakers',
-      count: speakers.length || 0,
+      count: speakers.data.length || 0,
     },
   ]
 

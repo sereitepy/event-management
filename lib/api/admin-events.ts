@@ -70,12 +70,14 @@ export async function updateEventAdmin(id: string, data: EventFormData) {
   }
 }
 
-export async function getAdminEvents(accessToken: string) {
+export async function getAdminEvents() {
+  const authResult = await getAuthHeaders()
+  if (!authResult.success) {
+    return { success: false, message: authResult.message }
+  }
+  
   const response = await fetch(`${API_BASE_URL}/api/v1/admin/events`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-    },
+    headers: authResult.headers,
     cache: 'no-store',
   })
 

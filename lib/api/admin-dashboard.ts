@@ -1,11 +1,13 @@
+import { getAuthHeaders } from "../auth"
 import { API_BASE_URL } from "../definitions"
 
-export async function getDashboardData(accessToken: string) {
+export async function getDashboardData() {
+   const authResult = await getAuthHeaders()
+    if (!authResult.success) {
+      return { success: false, message: authResult.message }
+    }
   const response = await fetch(`${API_BASE_URL}/api/v1/admin/dashboard`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      'Content-Type': 'application/json',
-    },
+    headers: authResult.headers,
     cache: 'no-store',
   })
 

@@ -1,5 +1,5 @@
+import { logout } from '@/lib/api/logout'
 import { cookies } from 'next/headers'
-import { logout } from '@/app/actions/auth'
 import { redirect } from 'next/navigation'
 
 export default async function ProfilePage() {

@@ -14,6 +14,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import Link from 'next/link'
+import { deleteCategory } from '@/lib/api/categories'
 
 interface Category {
   id: number
@@ -28,31 +29,6 @@ interface CategoriesTableProps {
 export default function CategoriesTable({ categories }: CategoriesTableProps) {
   const router = useRouter()
   const [deletingId, setDeletingId] = useState<number | null>(null)
-
-  const handleDelete = async (id: number, name: string) => {
-    if (!confirm(`Are you sure you want to delete "${name}"?`)) {
-      return
-    }
-
-    setDeletingId(id)
-    try {
-      const response = await fetch(`/api/admin/categories/${id}`, {
-        method: 'DELETE',
-      })
-
-      if (!response.ok) {
-        const error = await response.json()
-        alert(error.message || 'Failed to delete category')
-        return
-      }
-
-      router.refresh()
-    } catch (error) {
-      alert('An error occurred while deleting the category')
-    } finally {
-      setDeletingId(null)
-    }
-  }
 
   return (
     <div className='rounded-md border'>
@@ -99,7 +75,10 @@ export default function CategoriesTable({ categories }: CategoriesTableProps) {
                     <Button
                       variant='destructive'
                       size='sm'
-                      onClick={() => handleDelete(category.id, category.name)}
+                      onClick={() => {
+                        setDeletingId(category.id)
+                        deleteCategory(category.id)
+                      }}
                       disabled={deletingId === category.id}
                     >
                       {deletingId === category.id ? (
