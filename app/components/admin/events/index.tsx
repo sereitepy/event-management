@@ -56,10 +56,10 @@ export function EventsTable({ events }: { events: Event[] }) {
               </TableCell>
             </TableRow>
           ) : (
-            events.map(event => (
+            events.map((event, index) => (
               <TableRow key={event.id}>
                 <TableCell className='font-mono text-sm text-muted-foreground'>
-                  {event.id}
+                  {index + 1}
                 </TableCell>
                 <TableCell className='font-medium max-w-50 truncate'>
                   {event.title}

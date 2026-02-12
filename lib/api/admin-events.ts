@@ -1,6 +1,6 @@
 'use server'
 
-import { EventFormData } from '@/types/event'
+import { EventAdmin, EventFormData } from '@/types/event'
 import { revalidatePath } from 'next/cache'
 import { cookies } from 'next/headers'
 import { getAuthHeaders } from '../auth'
@@ -36,7 +36,34 @@ export async function createEventAdmin(data: EventFormData) {
   }
 }
 
-export async function updateEventAdmin(id: string, data: EventFormData) {
+export async function getEventByIdAdmin(id: number) {
+  const authResult = await getAuthHeaders()
+  if (!authResult.success) {
+    return { success: false, message: authResult.message, data: null }
+  }
+
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/v1/admin/events/${id}`,
+      {
+        headers: authResult.headers,
+        cache: 'no-store',
+      }
+    )
+    if (!response.ok) {
+          console.error('Failed to fetch speaker:', response.status)
+          return { success: false, message: 'Failed to fetch speaker', data: null }
+        }
+    
+        const data = await response.json()
+        return { success: true, data: data as EventAdmin }
+  } catch (error) {
+    console.error('Failed to fetch event:', error)
+    return null
+  }
+}
+
+export async function updateEventAdmin(id: number, data: EventFormData) {
   const authResult = await getAuthHeaders()
   if (!authResult.success) {
     return { success: false, message: authResult.message }

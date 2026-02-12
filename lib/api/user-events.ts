@@ -1,8 +1,8 @@
-import { Event, EventDetailType } from '@/types/event'
+import { Event, EventAdmin, EventDetailType } from '@/types/event'
 import { API_BASE_URL } from '../definitions'
 
 
-function transformEvent(backendEvent: any): Event {
+function transformEvent(backendEvent: EventAdmin): Event {
   return {
     id: backendEvent.id.toString(),
     image: backendEvent.imageUrls?.[0] || '',
@@ -15,7 +15,7 @@ function transformEvent(backendEvent: any): Event {
   }
 }
 
-function transformEventDetail(backendEvent: any): EventDetailType {
+function transformEventDetail(backendEvent: EventAdmin): EventDetailType {
   return {
     id: backendEvent.id.toString(),
     title: backendEvent.title,

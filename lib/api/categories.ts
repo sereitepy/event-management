@@ -106,7 +106,7 @@ export async function updateCategory(id: number, data: CategoryFormData) {
     const response = await fetch(
       `${API_BASE_URL}/api/v1/admin/categories/${id}`,
       {
-        method: 'POST',
+        method: 'PATCH',
         headers: authResult.headers,
         body: JSON.stringify({
           ...data,

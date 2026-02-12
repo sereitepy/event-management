@@ -14,7 +14,7 @@ export default async function AdminEditCategory({
   }
   return (
     <div>
-      <CategoryForm mode='edit' initialData={categories} />
+      <CategoryForm mode='edit' categoryId={id} initialData={categories} />
     </div>
   )
 }

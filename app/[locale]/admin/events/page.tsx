@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button'
 import { verifyAdminAccess } from '@/lib/auth'
 import { Plus } from 'lucide-react'
 import Link from 'next/link'
-import { EventsTable } from '../../../components/admin/events/events-table'
+import { EventsTable } from '../../../components/admin/events'
 import { getAdminEvents } from '@/lib/api/admin-events'
 
 export default async function AdminEventsPage() {

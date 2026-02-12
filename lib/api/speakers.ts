@@ -33,7 +33,7 @@ export async function getSpeakers() {
   }
 }
 
-export async function getSpeakerById(id: string) {
+export async function getSpeakerById(id: number) {
   const authResult = await getAuthHeaders()
   if (!authResult.success) {
     return { success: false, message: authResult.message, data: null }
@@ -106,6 +106,7 @@ export async function createSpeaker(data: CreateSpeakerData) {
 }
 
 export async function updateSpeaker(id: number, data: CreateSpeakerData) {
+
   const authResult = await getAuthHeaders()
   if (!authResult.success) {
     return { success: false, message: authResult.message, data: null }
@@ -116,7 +117,10 @@ export async function updateSpeaker(id: number, data: CreateSpeakerData) {
       `${API_BASE_URL}/api/v1/admin/speakers/${id}`,
       {
         method: 'PUT',
-        headers: authResult.headers,
+        headers: {
+          ...authResult.headers,
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(data),
       }
     )

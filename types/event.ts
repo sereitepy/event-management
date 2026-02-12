@@ -11,14 +11,7 @@ export interface Event {
   google_map_link?: string
   price: number // in cents
   currency: string
-  category:
-    | 'Music'
-    | 'Sports'
-    | 'Theater'
-    | 'Comedy'
-    | 'Tech'
-    | 'Business'
-    | 'Education'
+  category: string
 }
 
 export interface Speaker {
@@ -111,4 +104,24 @@ export interface EventFormData {
   capacity: number
   categoryId: number | string
   imageUrls: string[]
+}
+
+export interface EventAdmin {
+  id: number
+  title: string
+  description: string
+  startDate: string
+  endDate: string
+  startTime: string
+  endTime: string
+  location: string
+  khan: string
+  price: number
+  capacity: number
+  status: string
+  imageUrls: string[]
+  categoryId: number
+  categoryName: string
+  createdAt?: string
+  updatedAt?: string
 }
