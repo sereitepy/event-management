@@ -15,7 +15,7 @@ interface Category {
 
 interface EventFormProps {
   initialData?: EventFormData
-  eventId?: string
+  eventId?: number
   mode: 'create' | 'edit'
   categories: Category[]
 }

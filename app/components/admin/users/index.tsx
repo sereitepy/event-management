@@ -16,6 +16,7 @@ import {
 import { deleteUser } from '@/lib/api/user'
 
 interface User {
+  id: number,
   username: string
   email: string
   isDeleted: boolean
@@ -81,7 +82,7 @@ export default function UsersTable({ users }: UsersTableProps) {
                       variant='outline'
                       size='sm'
                       onClick={() =>
-                        router.push(`/admin/users/${index+1}/edit`)
+                        router.push(`/admin/users/${user.id}/edit`)
                       }
                     >
                       <Pencil className='h-4 w-4 mr-2' />
@@ -92,7 +93,7 @@ export default function UsersTable({ users }: UsersTableProps) {
                       size='sm'
                       onClick={() => {
                         setDeletingUsername(user.username)
-                        deleteUser(index + 1)
+                        deleteUser(user.id)
                       }}
                       disabled={deletingUsername === user.username}
                     >
