@@ -19,6 +19,17 @@ export default async function EventDetail({
     notFound()
   }
 
+  if (!data) {
+    return (
+      <div className='container mx-auto px-4 py-8'>
+        <h1>Event not found</h1>
+        <Link href={`/`}>
+          <Button>Back to Events</Button>
+        </Link>
+      </div>
+    )
+  }
+
   return (
     <div className='bg-secondary py-5 relative'>
       <div className='max-w-325 mx-auto flex flex-col gap-5 px-4 md:px-6 2xl:px-0'>
