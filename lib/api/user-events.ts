@@ -51,51 +51,27 @@ export async function getEvents(filters?: {
   const queryString = params.toString()
   const url = `${API_BASE_URL}/api/v1/events${queryString ? `?${queryString}` : ''}`
 
-  console.log('🔍 API_BASE_URL:', API_BASE_URL)
-  console.log('🔍 Full URL:', url)
-  console.log('🔍 Starting fetch...')
+  const res = await fetch(url, {
+    cache: 'no-store',
+  })
 
-  try {
-    const res = await fetch(url, {
-      cache: 'no-store',
-    })
-
-    console.log('🔍 Fetch completed. Status:', res.status)
-    console.log('🔍 Response OK:', res.ok)
-
-    if (!res.ok) {
-      const errorText = await res.text()
-      console.error('❌ Error response:', errorText)
-      throw new Error(`Failed to fetch events: ${res.status} - ${errorText}`)
-    }
-
-    const backendEvents = await res.json()
-    console.log('✅ Got events:', backendEvents.length)
-    return backendEvents.map(transformEvent)
-  } catch (error) {
-    console.error('❌ Fetch error:', error)
-    throw error
+  if (!res.ok) {
+    throw new Error('Failed to fetch events')
   }
+
+  const backendEvents = await res.json()
+  return backendEvents.map(transformEvent)
 }
 
-export async function getEventById(
-  id: string
-): Promise<EventDetailType | null> {
-  try {
-    const res = await fetch(`${API_BASE_URL}/api/v1/events/${id}`, {
-      cache: 'no-store',
-      signal: AbortSignal.timeout(8000),
-    })
+export async function getEventById(id: string): Promise<EventDetailType> {
+  const res = await fetch(`${API_BASE_URL}/api/v1/events/${id}`, {
+    cache: 'no-store',
+  })
 
-    if (!res.ok) {
-      console.error(`Failed to fetch event ${id}: ${res.status}`)
-      return null
-    }
-
-    const backendEvent = await res.json()
-    return transformEventDetail(backendEvent)
-  } catch (error) {
-    console.error(`Error fetching event ${id}:`, error)
-    return null
+  if (!res.ok) {
+    throw new Error('Failed to fetch event detail')
   }
+
+  const backendEvent = await res.json()
+  return transformEventDetail(backendEvent)
 }
