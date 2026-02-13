@@ -28,9 +28,9 @@
 - Event search and filtering by keyword, location, date, and category
 - User authentication (login/signup)
 - Responsive design for desktop and mobile
-- Admin dashboard for event management (create, update, delete events)
+- Admin dashboard for events, users, categories, speakers management (create, update, delete, getAll, getById)
 - Dark/light theme toggle
-- Multi-language support
+- Multi-language support (in the future...)
 
 ## Technologies Used
 
