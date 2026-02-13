@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# evenTs - Event Management Platform
 
-## Getting Started
+**Developers:**
+* Sereitepy Or
+* Seavthong But
+* Kanha Huon
 
-First, run the development server:
+## Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[https://event-management-seven-woad.vercel.app/en](https://event-management-seven-woad.vercel.app/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Screenshots
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Desktop View
+<img width="832" height="580" alt="Screenshot 2026-02-14 at 12 13 14 in the morning" src="https://github.com/user-attachments/assets/243dcfda-b538-472f-8354-6639634db6bf" />
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<img width="834" height="579" alt="Screenshot 2026-02-14 at 12 14 14 in the morning" src="https://github.com/user-attachments/assets/5fcacfa9-ac83-4cc6-bfb7-cad1db0e56a8" />
 
-## Learn More
+<img width="927" height="641" alt="Screenshot 2026-02-14 at 12 15 04 in the morning" src="https://github.com/user-attachments/assets/d4df5331-13ec-4540-8eff-b22515e839e5" />
 
-To learn more about Next.js, take a look at the following resources:
+### Mobile View
+<img width="372" height="697" alt="Screenshot 2026-02-14 at 12 16 19 in the morning" src="https://github.com/user-attachments/assets/ed6d39fd-d6d8-4201-a300-5630528c8580" />
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<img width="352" height="697" alt="Screenshot 2026-02-14 at 12 16 38 in the morning" src="https://github.com/user-attachments/assets/c6b01950-71bf-4b20-afb1-d8930380b9dd" />
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Features
 
-## Deploy on Vercel
+- Event search and filtering by keyword, location, date, and category
+- User authentication (login/signup)
+- Responsive design for desktop and mobile
+- Admin dashboard for event management (create, update, delete events)
+- Dark/light theme toggle
+- Multi-language support
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Technologies Used
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js (React)
+- TypeScript
+- Tailwind CSS
+- Vercel (deployment)
+
+## Credits
+
+- Event images from [Unsplash](https://unsplash.com/)
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+
+# Running Locally
+
+### Prerequisites
+- Node.js 18+
+- npm
+
+### Steps
+
+1. Clone the repository
+   ```bash
+   git clone https://github.com/sereitepy/event-management.git
+   cd event-management
+   ```
+
+2. Install dependencies
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables
+   
+   Create a `.env` file with our backend Java Springboot https://github.com/ButSeavThong/kh-event-management
+
+4. Run the development server
+   ```bash
+   npm run dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000)
