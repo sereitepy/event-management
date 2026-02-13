@@ -147,3 +147,57 @@ export async function getAuthHeaders() {
     message: null,
   }
 }
+
+
+// added more two method by thong : 
+/**
+ * Extract user email from the access token (from 'sub' claim)
+ */
+export async function getEmailFromToken(): Promise<string | null> {
+  try {
+    const cookieStore = await cookies()
+    const accessToken = cookieStore.get('accessToken')?.value
+
+    if (!accessToken) {
+      return null
+    }
+
+    const payload = JSON.parse(
+      Buffer.from(accessToken.split('.')[1], 'base64').toString()
+    )
+
+    // In your token, email is in the 'sub' claim
+    return payload.sub || null
+  } catch (error) {
+    console.error('Failed to extract email from token:', error)
+    return null
+  }
+}
+
+/**
+ * Extract user ID from the access token
+ */
+export async function getUserIdFromToken(): Promise<number | null> {
+  try {
+    const cookieStore = await cookies()
+    const accessToken = cookieStore.get('accessToken')?.value
+
+    if (!accessToken) {
+      return null
+    }
+
+    const payload = JSON.parse(
+      Buffer.from(accessToken.split('.')[1], 'base64').toString()
+    )
+
+    // Assuming your JWT has 'id' or 'userId' or 'sub' field
+    // Adjust based on your actual token structure
+    const userId = payload.id || payload.userId || payload.sub
+
+    return userId ? parseInt(userId, 10) : null
+  } catch (error) {
+    console.error('Failed to extract user ID from token:', error)
+    return null
+  }
+}
+
