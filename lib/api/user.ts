@@ -135,7 +135,7 @@ export async function updateUser(userId: string, data: UpdateUserData) {
     const response = await fetch(
       `${API_BASE_URL}/api/v1/admin/users/${userId}`,
       {
-        method: 'PUT',
+        method: 'PATCH',
         headers: authResult.headers,
         body: JSON.stringify({
           username: data.username,
