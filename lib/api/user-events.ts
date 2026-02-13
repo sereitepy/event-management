@@ -59,7 +59,8 @@ export async function getEvents(filters?: {
     throw new Error('Failed to fetch events')
   }
 
-  const backendEvents = await res.json()
+  const response = await res.json()
+  const backendEvents = response.content || []
   return backendEvents.map(transformEvent)
 }
 

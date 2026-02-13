@@ -90,6 +90,7 @@ export async function createSpeaker(data: CreateSpeakerData) {
       return {
         success: false,
         message: errorMessage,
+        data: null,
       }
     }
 
@@ -101,6 +102,7 @@ export async function createSpeaker(data: CreateSpeakerData) {
     return {
       success: false,
       message: error instanceof Error ? error.message : 'An error occurred',
+      data: null,
     }
   }
 }
